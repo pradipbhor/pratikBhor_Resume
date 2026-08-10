@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratik Bhor — Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --panel:#10141C;
+    --panel-2:#151A24;
+    --border:#212836;
+    --border-soft:#1A2029;
+    --text:#E7EAF2;
+    --text-dim:#98A2B8;
+    --text-faint:#5C6579;
+    --teal:#5EEAD4;
+    --teal-dim:#2E8B7C;
+    --amber:#F0B429;
+    --coral:#F0785A;
+    --mono:'JetBrains Mono',monospace;
+    --sans:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--teal);color:#04211C;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:920px;margin:0 auto;padding:0 32px;}
+
+  /* background grid texture */
+  .bg-grid{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.35;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+  }
+
+  /* ---------- Sidebar nav ---------- */
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;width:220px;
+    border-right:1px solid var(--border-soft);
+    padding:40px 28px;
+    display:flex;flex-direction:column;
+    z-index:20;
+    background:var(--bg);
+  }
+  .sidebar .brand{
+    font-family:var(--mono);font-weight:600;font-size:14px;
+    color:var(--text);margin-bottom:4px;
+  }
+  .sidebar .brand span{color:var(--teal);}
+  .sidebar .brand-sub{
+    font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-bottom:44px;
+  }
+  .sidebar nav{display:flex;flex-direction:column;gap:4px;}
+  .sidebar nav a{
+    font-family:var(--mono);font-size:12.5px;color:var(--text-dim);
+    padding:8px 10px;border-radius:4px;border-left:2px solid transparent;
+    display:flex;align-items:center;gap:8px;
+    transition:color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .sidebar nav a .idx{color:var(--text-faint);}
+  .sidebar nav a:hover{color:var(--text);background:var(--panel);}
+  .sidebar nav a.active{color:var(--teal);border-left-color:var(--teal);background:var(--panel);}
+  .sidebar nav a.active .idx{color:var(--teal);}
+  .sidebar .status{
+    margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--text-faint);
+    display:flex;align-items:center;gap:8px;
+  }
+  .status .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(94,234,212,0.12);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .sidebar .uptime{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
+  .sidebar .uptime b{color:var(--text-dim);font-weight:500;}
+
+  /* ---------- Mobile top bar ---------- */
+  .topbar{display:none;}
+
+  /* ---------- Main layout ---------- */
+  main{margin-left:220px;position:relative;z-index:1;}
+  section{padding:96px 0;border-bottom:1px solid var(--border-soft);}
+  section:last-of-type{border-bottom:none;}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-stagger.visible .stagger-item{opacity:1;transform:translateY(0);}
+  .stagger-item{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .stagger-item:nth-child(1){transition-delay:.05s;}
+  .stagger-item:nth-child(2){transition-delay:.14s;}
+  .stagger-item:nth-child(3){transition-delay:.23s;}
+  .stagger-item:nth-child(4){transition-delay:.32s;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal,.stagger-item{opacity:1 !important;transform:none !important;transition:none !important;}
+  }
+
+  .eyebrow{
+    font-family:var(--mono);font-size:12.5px;color:var(--teal);
+    margin-bottom:14px;display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:'';width:16px;height:1px;background:var(--teal-dim);display:inline-block;}
+  h2.title{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--text);margin-bottom:40px;}
+
+  /* ---------- Hero ---------- */
+  #hero{padding-top:104px;}
+  .terminal{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal .tbar{
+    display:flex;align-items:center;gap:8px;padding:12px 16px;
+    border-bottom:1px solid var(--border-soft);background:var(--panel-2);
+  }
+  .tbar .tdot{width:10px;height:10px;border-radius:50%;}
+  .tbar .tdot:nth-child(1){background:#F0785A;}
+  .tbar .tdot:nth-child(2){background:#F0B429;}
+  .tbar .tdot:nth-child(3){background:#5EEAD4;}
+  .tbar .tpath{margin-left:12px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .terminal .tbody{
+    padding:28px 28px 32px;font-family:var(--mono);font-size:14.5px;
+    min-height:260px;
+  }
+  .tline{margin-bottom:6px;color:var(--text-dim);}
+  .tline .prompt{color:var(--teal);margin-right:8px;}
+  .tline .out{color:var(--text);}
+  .tline .out.big{font-size:26px;font-weight:700;color:var(--text);display:block;margin:4px 0 2px;}
+  .tline .out.accent{color:var(--amber);}
+  .cursor{display:inline-block;width:8px;height:16px;background:var(--teal);vertical-align:middle;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:6px;
+    border:1px solid var(--border);color:var(--text-dim);
+    display:inline-flex;align-items:center;gap:8px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--teal-dim);color:var(--text);background:var(--panel);}
+  .btn.primary{background:var(--teal);color:#04211C;border-color:var(--teal);font-weight:600;}
+  .btn.primary:hover{background:#79f0dc;color:#04211C;}
+
+  /* ---------- Skills ---------- */
+  .skill-groups{display:flex;flex-direction:column;gap:22px;}
+  .skill-row{display:flex;gap:20px;align-items:baseline;flex-wrap:wrap;}
+  .skill-row .label{
+    font-family:var(--mono);font-size:12px;color:var(--text-faint);
+    min-width:150px;flex-shrink:0;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:var(--mono);font-size:12.5px;padding:6px 12px;border-radius:5px;
+    background:var(--panel);border:1px solid var(--border);color:var(--text-dim);
+  }
+
+  /* ---------- Experience ---------- */
+  .exp-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:28px 30px;
+  }
+  .exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+  .exp-role{font-size:17px;font-weight:600;color:var(--text);}
+  .exp-org{color:var(--teal);font-size:14.5px;margin-top:2px;}
+  .exp-meta{font-family:var(--mono);font-size:12px;color:var(--text-faint);text-align:right;white-space:nowrap;}
+  .exp-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+  .exp-list li{list-style:none;padding-left:20px;position:relative;color:var(--text-dim);font-size:14.5px;}
+  .exp-list li::before{content:'▸';position:absolute;left:0;color:var(--teal-dim);}
+  .exp-stack{margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft);}
+
+  /* ---------- Projects ---------- */
+  .projects{display:flex;flex-direction:column;gap:20px;}
+  .proj-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .proj-card:hover{border-color:var(--teal-dim);transform:translateY(-3px);box-shadow:0 16px 32px -20px rgba(94,234,212,0.18);}
+  .proj-status{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+  .proj-status .pdot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;}
+  .proj-head{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:16px 24px;border-bottom:1px solid var(--border-soft);background:var(--panel-2);flex-wrap:wrap;
+  }
+  .proj-filename{font-family:var(--mono);font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .proj-filename .ext{color:var(--text-faint);}
+  .proj-date{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);}
+  .proj-link{font-family:var(--mono);font-size:12px;color:var(--teal);display:flex;align-items:center;gap:6px;}
+  .proj-body{padding:22px 24px 24px;}
+  .proj-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+  .proj-list li{list-style:none;padding-left:20px;position:relative;color:var(--text-dim);font-size:14px;}
+  .proj-list li::before{content:'▸';position:absolute;left:0;color:var(--teal-dim);}
+
+  /* ---------- Education ---------- */
+  .edu-list{display:flex;flex-direction:column;}
+  .edu-item{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+    padding:22px 0;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-name{font-weight:600;font-size:15.5px;color:var(--text);}
+  .edu-degree{color:var(--text-dim);font-size:14px;margin-top:3px;}
+  .edu-loc{color:var(--text-faint);font-size:12.5px;margin-top:3px;font-family:var(--mono);}
+  .edu-right{text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--text-faint);white-space:nowrap;}
+  .edu-score{color:var(--amber);font-weight:600;font-size:14px;margin-top:4px;}
+
+  /* ---------- Achievements ---------- */
+  .ach-list{display:flex;flex-direction:column;gap:14px;}
+  .ach-item{display:flex;gap:14px;align-items:flex-start;color:var(--text-dim);font-size:14.5px;}
+  .ach-item i{color:var(--amber);margin-top:3px;font-size:16px;flex-shrink:0;}
+
+  /* ---------- Contact / Footer ---------- */
+  #contact .title{margin-bottom:16px;}
+  #contact .sub{color:var(--text-dim);font-size:15px;max-width:520px;margin-bottom:36px;}
+  .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .contact-card{
+    display:flex;align-items:center;gap:14px;
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px 18px;
+    transition:border-color .15s ease,transform .15s ease;
+  }
+  .contact-card:hover{border-color:var(--teal-dim);transform:translateY(-1px);}
+  .contact-card i{font-size:19px;color:var(--teal);}
+  .contact-card .cl{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
+  .contact-card .cv{font-size:14px;color:var(--text);margin-top:2px;word-break:break-word;}
+
+  /* ---------- Interactive console ---------- */
+  .console{
+    margin-top:52px;background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  }
+  .console .tbar .tpath{margin-left:12px;}
+  .console-body{padding:20px 24px;font-family:var(--mono);font-size:13.5px;max-height:260px;overflow-y:auto;}
+  .console-log .tline{color:var(--text-dim);white-space:pre-wrap;word-break:break-word;}
+  .console-log .tline .prompt{color:var(--teal);}
+  .console-log .tline .out.err{color:var(--coral);}
+  .console-log .tline .out.ok{color:var(--teal);}
+  .console-input-row{
+    display:flex;align-items:center;gap:8px;padding:8px 24px 20px;font-family:var(--mono);font-size:13.5px;
+  }
+  .console-input-row .prompt{color:var(--teal);}
+  .console-input-row input{
+    flex:1;background:transparent;border:none;outline:none;color:var(--text);
+    font-family:var(--mono);font-size:13.5px;caret-color:var(--teal);
+  }
+  .console-input-row input::placeholder{color:var(--text-faint);}
+  .console-hint{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
+
+  footer{padding:32px 0 60px;font-family:var(--mono);font-size:12px;color:var(--text-faint);text-align:center;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:968px){
+    .sidebar{display:none;}
+    main{margin-left:0;}
+    .topbar{
+      display:flex;position:sticky;top:0;z-index:30;background:rgba(11,14,20,0.92);
+      backdrop-filter:blur(8px);border-bottom:1px solid var(--border-soft);
+      overflow-x:auto;padding:14px 20px;gap:22px;
+    }
+    .topbar a{font-family:var(--mono);font-size:12px;color:var(--text-dim);white-space:nowrap;}
+    .topbar a.active{color:var(--teal);}
+    .container{padding:0 20px;}
+    section{padding:64px 0;}
+    .skill-row{flex-direction:column;gap:10px;}
+    .exp-meta{text-align:left;}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    .terminal .tbody{font-size:13px;padding:22px 18px 26px;}
+    h2.title{font-size:22px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .cursor{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="topbar" id="topbar">
+  <a href="#hero" class="active">home</a>
+  <a href="#skills">skills</a>
+  <a href="#experience">experience</a>
+  <a href="#projects">projects</a>
+  <a href="#education">education</a>
+  <a href="#contact">contact</a>
+</div>
+
+<aside class="sidebar">
+  <div class="brand">pratik<span>.dev</span></div>
+  <div class="brand-sub">backend engineer</div>
+  <nav id="sidenav">
+    <a href="#hero" class="active"><span class="idx">01</span> home</a>
+    <a href="#skills"><span class="idx">02</span> skills</a>
+    <a href="#experience"><span class="idx">03</span> experience</a>
+    <a href="#projects"><span class="idx">04</span> projects</a>
+    <a href="#education"><span class="idx">05</span> education</a>
+    <a href="#contact"><span class="idx">06</span> contact</a>
+  </nav>
+  <div class="status"><span class="dot"></span> open to work</div>
+</aside>
+
+<main>
+
+  <section id="hero">
+    <div class="container">
+      <div class="terminal">
+        <div class="tbar">
+          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+          <span class="tpath">~/pratik-bhor — zsh</span>
+        </div>
+        <div class="tbody" id="typeTarget"></div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn primary" href="#projects"><i class="ti ti-code"></i> view projects</a>
+        <a class="btn" href="mailto:pratikbhor2004@gmail.com"><i class="ti ti-mail"></i> get in touch</a>
+        <a class="btn" href="https://github.com/pratikbhor" target="_blank" rel="noopener"><i class="ti ti-brand-github"></i> github</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="eyebrow">02 / skills.json</div>
+      <h2 class="title">// tech stack</h2>
+      <div class="skill-groups">
+        <div class="skill-row">
+          <div class="label">languages</div>
+          <div class="chips">
+            <span class="chip">Java</span><span class="chip">Python</span><span class="chip">JavaScript</span>
+            <span class="chip">SQL</span><span class="chip">HTML</span><span class="chip">CSS</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="label">backend &amp; frameworks</div>
+          <div class="chips">
+            <span class="chip">Spring Boot</span><span class="chip">REST APIs</span>
+            <span class="chip">Hibernate</span><span class="chip">JDBC</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="label">databases</div>
+          <div class="chips"><span class="chip">MySQL</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="label">cloud &amp; devops</div>
+          <div class="chips">
+            <span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Git</span>
+            <span class="chip">GitHub</span><span class="chip">Linux</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="label">tools</div>
+          <div class="chips">
+            <span class="chip">VS Code</span><span class="chip">Eclipse IDE</span><span class="chip">MySQL Workbench</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="eyebrow">03 / work_history</div>
+      <h2 class="title">// experience</h2>
+      <div class="exp-card">
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Artificial Intelligence Intern</div>
+            <div class="exp-org">Edunet Foundation — Microsoft &amp; SAP CSR Initiative</div>
+          </div>
+          <div class="exp-meta">Nov 2024 – Dec 2024<br>Remote, India</div>
+        </div>
+        <ul class="exp-list">
+          <li>Developed an automated, real-time Face Recognition Attendance Management System using Python, OpenCV, and Tkinter.</li>
+          <li>Integrated deep-learning facial embeddings with face_recognition and dlib for real-time face detection, user registration, and log management.</li>
+          <li>Designed a UI featuring real-time camera feeds and color-coded status feedback for immediate attendance verification.</li>
+          <li>Implemented timestamped audit logging and data tracking using Pandas and Firebase.</li>
+        </ul>
+        <div class="exp-stack">
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">Machine Learning</span>
+            <span class="chip">Computer Vision</span><span class="chip">Pandas</span><span class="chip">Firebase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="eyebrow">04 / repositories</div>
+      <h2 class="title">// projects</h2>
+      <div class="projects">
+
+        <div class="proj-card">
+          <div class="proj-head">
+            <div class="proj-filename"><i class="ti ti-folder"></i> resume-analyzer-ai-pro <span class="ext">/ full-stack</span></div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span class="proj-status"><span class="pdot"></span> deployed</span>
+              <span class="proj-date">Jul 2026</span>
+            </div>
+          </div>
+          <div class="proj-body">
+            <ul class="proj-list">
+              <li>Built an AI-powered Resume Analyzer using React, Spring Boot, and MySQL to evaluate ATS compatibility, extract technical skills, and give personalized resume improvement suggestions via the Google Gemini API.</li>
+              <li>Implemented PDF resume parsing with Apache PDFBox, job description matching, missing skill detection, interview question generation, and learning roadmap recommendations through RESTful APIs.</li>
+              <li>Developed secure authentication using Spring Security, JWT, Google OAuth2, and Brevo for email verification and password reset with a scalable full-stack architecture.</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">React.js</span><span class="chip">Spring Boot</span><span class="chip">MySQL</span>
+              <span class="chip">Google Gemini API</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">REST APIs</span>
+            </div>
+            <div style="margin-top:18px;">
+              <a class="proj-link" href="https://resume-analyser-kp0f.onrender.com" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> resume-analyser-kp0f.onrender.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-head">
+            <div class="proj-filename"><i class="ti ti-folder"></i> airline-management-system <span class="ext">/ desktop</span></div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span class="proj-status" style="color:var(--text-faint);"><span class="pdot" style="background:var(--text-faint);animation:none;"></span> source only</span>
+              <span class="proj-date">Jan 2025</span>
+            </div>
+          </div>
+          <div class="proj-body">
+            <ul class="proj-list">
+              <li>Developed a desktop-based Airline Management System using Java Swing to manage flight bookings, passenger records, ticket reservations, and cancellations.</li>
+              <li>Implemented core modules including user authentication, flight scheduling, booking management, and database operations using Java and SQL.</li>
+              <li>Designed an interactive GUI with Java Swing and integrated JDBC with MySQL for efficient database connectivity and streamlined data management.</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">Java</span><span class="chip">Java Swing</span><span class="chip">JDBC</span><span class="chip">MySQL</span><span class="chip">SQL</span>
+            </div>
+            <div style="margin-top:18px;">
+              <a class="proj-link" href="https://github.com/Pratikbhor2004/Airline-Management-System" target="_blank" rel="noopener"><i class="ti ti-brand-github"></i> github.com/Pratikbhor2004/Airline-Management-System</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-head">
+            <div class="proj-filename"><i class="ti ti-folder"></i> tikone-global-website <span class="ext">/ frontend</span></div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span class="proj-status"><span class="pdot"></span> deployed</span>
+              <span class="proj-date">Sept 2025</span>
+            </div>
+          </div>
+          <div class="proj-body">
+            <ul class="proj-list">
+              <li>Developed a responsive business website using HTML, CSS, and JavaScript to showcase services with an optimized UI/UX across devices.</li>
+              <li>Integrated WhatsApp chat functionality for real-time customer communication and improved user engagement.</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span><span class="chip">Responsive Design</span><span class="chip">WhatsApp Integration</span>
+            </div>
+            <div style="margin-top:18px;">
+              <a class="proj-link" href="https://tikoneglobal.com" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> tikoneglobal.com</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container">
+      <div class="eyebrow">05 / academic_record</div>
+      <h2 class="title">// education</h2>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">Savitribai Phule Pune University (SPPU)</div>
+            <div class="edu-degree">B.E. in Computer Engineering</div>
+            <div class="edu-loc">Pune, India</div>
+          </div>
+          <div class="edu-right">Nov 2022 – May 2026<div class="edu-score">CGPA 8.32 / 10</div></div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">Bharat Highschool and Junior College</div>
+            <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+            <div class="edu-loc">India</div>
+          </div>
+          <div class="edu-right">June 2021 – March 2022<div class="edu-score">68.17%</div></div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">Bharat Highschool and Junior College</div>
+            <div class="edu-degree">Secondary School Certificate (SSC)</div>
+            <div class="edu-loc">India</div>
+          </div>
+          <div class="edu-right">June 2019 – March 2020<div class="edu-score">84.80%</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;">
+        <div class="eyebrow">certifications &amp; achievements</div>
+        <div class="ach-list">
+          <div class="ach-item"><i class="ti ti-brand-leetcode"></i> Solved 200+ Data Structures and Algorithms problems on LeetCode, strengthening problem-solving skills and core DSA concepts.</div>
+          <div class="ach-item"><i class="ti ti-star"></i> Achieved a 2-star rating in SQL on HackerRank by solving database and query optimization challenges.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="eyebrow">06 / connect</div>
+      <h2 class="title">// get in touch</h2>
+      <p class="sub">Looking for backend or full-stack opportunities. Feel free to reach out — happy to talk about Spring Boot, system design, or the next project.</p>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:pratikbhor2004@gmail.com">
+          <i class="ti ti-mail"></i>
+          <div><div class="cl">Email</div><div class="cv">pratikbhor2004@gmail.com</div></div>
+        </a>
+        <a class="contact-card" href="tel:+918010576707">
+          <i class="ti ti-phone"></i>
+          <div><div class="cl">Phone</div><div class="cv">+91 8010576707</div></div>
+        </a>
+        <a class="contact-card" href="https://github.com/pratikbhor" target="_blank" rel="noopener">
+          <i class="ti ti-brand-github"></i>
+          <div><div class="cl">GitHub</div><div class="cv">github.com/pratikbhor</div></div>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/pratik-bhor" target="_blank" rel="noopener">
+          <i class="ti ti-brand-linkedin"></i>
+          <div><div class="cl">LinkedIn</div><div class="cv">linkedin.com/in/pratik-bhor</div></div>
+        </a>
+      </div>
+
+      <div class="console">
+        <div class="tbar">
+          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+          <span class="tpath">try it — ~/pratik-bhor</span>
+        </div>
+        <div class="console-body" id="consoleLog">
+          <div class="tline"><span class="prompt">$</span><span class="out">type <b style="color:var(--amber);">help</b> to see what this does</span></div>
+        </div>
+        <div class="console-input-row">
+          <span class="prompt">$</span>
+          <input id="consoleInput" type="text" placeholder="help, projects, skills, contact, sudo hire-me" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+      <div class="console-hint">a tiny shell — try: help · about · skills · projects · contact · sudo hire-me</div>
+    </div>
+  </section>
+
+  <footer>designed &amp; built by Pratik Bhor — © 2026</footer>
+
+</main>
+
+<script>
+  // typewriter hero
+  const lines = [
+    {p:'$', t:'whoami', d:0},
+    {p:'', t:'Pratik Bhor', d:0, cls:'big'},
+    {p:'$', t:'cat role.txt', d:0},
+    {p:'', t:'Backend Developer · Java & Spring Boot', d:0, cls:'accent'},
+    {p:'$', t:'cat status.txt', d:0},
+    {p:'', t:'Final-year B.E. Computer Engineering · Pune, India', d:0},
+    {p:'$', t:'echo $FOCUS', d:0},
+    {p:'', t:'REST APIs · Spring Security · MySQL · Cloud', d:0}
+  ];
+  const target = document.getElementById('typeTarget');
+  let li = 0;
+
+  function typeLine(){
+    if(li >= lines.length){
+      const c = document.createElement('span');
+      c.className = 'cursor';
+      target.appendChild(c);
+      return;
+    }
+    const cfg = lines[li];
+    const row = document.createElement('div');
+    row.className = 'tline';
+    if(cfg.p){
+      const p = document.createElement('span');
+      p.className = 'prompt';
+      p.textContent = cfg.p + ' ';
+      row.appendChild(p);
+    }
+    const out = document.createElement('span');
+    out.className = 'out' + (cfg.cls ? ' ' + cfg.cls : '');
+    row.appendChild(out);
+    target.appendChild(row);
+
+    let ci = 0;
+    const speed = cfg.p ? 42 : 14;
+    const timer = setInterval(()=>{
+      out.textContent += cfg.t[ci];
+      ci++;
+      if(ci >= cfg.t.length){
+        clearInterval(timer);
+        li++;
+        setTimeout(typeLine, cfg.p ? 180 : 320);
+      }
+    }, speed);
+  }
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    lines.forEach(cfg=>{
+      const row = document.createElement('div');
+      row.className = 'tline';
+      if(cfg.p){
+        const p = document.createElement('span');
+        p.className = 'prompt';
+        p.textContent = cfg.p + ' ';
+        row.appendChild(p);
+      }
+      const out = document.createElement('span');
+      out.className = 'out' + (cfg.cls ? ' ' + cfg.cls : '');
+      out.textContent = cfg.t;
+      row.appendChild(out);
+      target.appendChild(row);
+    });
+  } else {
+    typeLine();
+  }
+
+  // active nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const sideLinks = document.querySelectorAll('#sidenav a');
+  const topLinks = document.querySelectorAll('#topbar a');
+  const setActive = (id) => {
+    [...sideLinks, ...topLinks].forEach(a=>{
+      a.classList.toggle('active', a.getAttribute('href') === '#'+id);
+    });
+  };
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) setActive(e.target.id);
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+  sections.forEach(s=>obs.observe(s));
+
+  // uptime counter
+  const uptimeEl = document.createElement('div');
+  uptimeEl.className = 'uptime';
+  document.querySelector('.sidebar .status').insertAdjacentElement('afterend', uptimeEl);
+  const start = Date.now();
+  function fmtUptime(ms){
+    const s = Math.floor(ms/1000);
+    const m = Math.floor(s/60);
+    const h = Math.floor(m/60);
+    return String(h).padStart(2,'0')+':'+String(m%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  }
+  setInterval(()=>{
+    uptimeEl.innerHTML = 'session uptime <b>'+fmtUptime(Date.now()-start)+'</b>';
+  }, 1000);
+
+  // scroll reveal
+  const revealables = document.querySelectorAll('.eyebrow, h2.title, .exp-card, .proj-card, .edu-item, .ach-item, .contact-card, .console, #hero .terminal, #hero .hero-cta, #contact .sub');
+  revealables.forEach(el=>el.classList.add('reveal'));
+  const revealObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+  revealables.forEach(el=>revealObs.observe(el));
+
+  // interactive console easter egg
+  const consoleLog = document.getElementById('consoleLog');
+  const consoleInput = document.getElementById('consoleInput');
+  const commands = {
+    help: 'available commands: about, skills, projects, experience, contact, resume, clear, sudo hire-me',
+    about: 'Pratik Bhor — backend developer focused on Java, Spring Boot, and REST APIs. Final-year B.E. Computer Engineering @ SPPU, Pune.',
+    skills: 'Java · Spring Boot · REST APIs · Hibernate · JDBC · MySQL · AWS · Docker · Git',
+    projects: '3 repos found: resume-analyzer-ai-pro, airline-management-system, tikone-global-website — scroll up to view',
+    experience: 'AI Intern @ Edunet Foundation (Microsoft & SAP CSR Initiative) — Nov–Dec 2024',
+    contact: 'email: pratikbhor2004@gmail.com · phone: +91 8010576707 · github.com/pratikbhor',
+    resume: 'tip: use your browser\'s Print > Save as PDF on this page for a shareable copy',
+    'sudo hire-me': '[sudo] password for recruiter: ****\npermission granted. redirecting to mailto:pratikbhor2004@gmail.com ...'
+  };
+  function printLine(promptText, outText, cls){
+    const row = document.createElement('div');
+    row.className = 'tline';
+    row.innerHTML = '<span class="prompt">'+promptText+'</span><span class="out'+(cls?' '+cls:'')+'"></span>';
+    row.querySelector('.out').textContent = outText;
+    consoleLog.appendChild(row);
+    consoleLog.scrollTop = consoleLog.scrollHeight;
+  }
+  consoleInput.addEventListener('keydown', (e)=>{
+    if(e.key !== 'Enter') return;
+    const raw = consoleInput.value.trim();
+    if(!raw) return;
+    printLine('$ ', raw);
+    const cmd = raw.toLowerCase();
+    if(cmd === 'clear'){
+      consoleLog.innerHTML = '';
+    } else if(commands[cmd]){
+      printLine('', commands[cmd], 'ok');
+      if(cmd === 'sudo hire-me'){
+        setTimeout(()=>{ window.location.href = 'mailto:pratikbhor2004@gmail.com'; }, 900);
+      }
+    } else {
+      printLine('', 'command not found: '+raw+' — type help', 'err');
+    }
+    consoleInput.value = '';
+  });
+</script>
+
+</body>
+</html>
