@@ -3,11 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pratik Bhor — Backend Developer</title>
+<title>Pratik Bhor — Backend Developer (Java · Spring Boot)</title>
+<meta name="description" content="Pratik Bhor — Backend Developer specialising in Java, Spring Boot, REST APIs, Spring Security and MySQL. B.E. Computer Engineering (SPPU, 2026). Open to full-time backend and full-stack roles.">
+<meta name="author" content="Pratik Bhor">
+<meta name="theme-color" content="#0B0E14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pratik Bhor — Backend Developer">
+<meta property="og:description" content="Java · Spring Boot · REST APIs · Spring Security · MySQL. Shipped a full-stack AI resume analyzer to production. Ask my AI anything about me.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0E14'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='30' fill='%235EEAD4'%3EPB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   :root{
     --bg:#0B0E14;
@@ -33,10 +41,11 @@
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   ::selection{background:var(--teal);color:#04211C;}
   a{color:inherit;text-decoration:none;}
-  .container{max-width:920px;margin:0 auto;padding:0 32px;}
+  .container{max-width:1000px;margin:0 auto;padding:0 32px;}
 
   /* background grid texture */
   .bg-grid{
@@ -81,7 +90,7 @@
     margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--text-faint);
     display:flex;align-items:center;gap:8px;
   }
-  .status .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(94,234,212,0.12);animation:pulse 2s ease-in-out infinite;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(94,234,212,0.12);animation:pulse 2s ease-in-out infinite;flex-shrink:0;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
   .sidebar .uptime{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
   .sidebar .uptime b{color:var(--text-dim);font-weight:500;}
@@ -97,14 +106,8 @@
   /* ---------- Scroll reveal ---------- */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
   .reveal.visible{opacity:1;transform:translateY(0);}
-  .reveal-stagger.visible .stagger-item{opacity:1;transform:translateY(0);}
-  .stagger-item{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
-  .stagger-item:nth-child(1){transition-delay:.05s;}
-  .stagger-item:nth-child(2){transition-delay:.14s;}
-  .stagger-item:nth-child(3){transition-delay:.23s;}
-  .stagger-item:nth-child(4){transition-delay:.32s;}
   @media (prefers-reduced-motion: reduce){
-    .reveal,.stagger-item{opacity:1 !important;transform:none !important;transition:none !important;}
+    .reveal{opacity:1 !important;transform:none !important;transition:none !important;}
   }
 
   .eyebrow{
@@ -114,13 +117,8 @@
   .eyebrow::before{content:'';width:16px;height:1px;background:var(--teal-dim);display:inline-block;}
   h2.title{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--text);margin-bottom:40px;}
 
-  /* ---------- Hero ---------- */
-  #hero{padding-top:104px;}
-  .terminal{
-    background:var(--panel);border:1px solid var(--border);border-radius:10px;
-    overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
-  }
-  .terminal .tbar{
+  /* ---------- Shared window chrome ---------- */
+  .tbar{
     display:flex;align-items:center;gap:8px;padding:12px 16px;
     border-bottom:1px solid var(--border-soft);background:var(--panel-2);
   }
@@ -129,41 +127,137 @@
   .tbar .tdot:nth-child(2){background:#F0B429;}
   .tbar .tdot:nth-child(3){background:#5EEAD4;}
   .tbar .tpath{margin-left:12px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
-  .terminal .tbody{
-    padding:28px 28px 32px;font-family:var(--mono);font-size:14.5px;
-    min-height:260px;
-  }
-  .tline{margin-bottom:6px;color:var(--text-dim);}
-  .tline .prompt{color:var(--teal);margin-right:8px;}
-  .tline .out{color:var(--text);}
-  .tline .out.big{font-size:26px;font-weight:700;color:var(--text);display:block;margin:4px 0 2px;}
-  .tline .out.accent{color:var(--amber);}
-  .cursor{display:inline-block;width:8px;height:16px;background:var(--teal);vertical-align:middle;animation:blink 1s step-end infinite;}
-  @keyframes blink{50%{opacity:0;}}
+  .tbar .tright{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--text-faint);display:flex;align-items:center;gap:6px;}
 
-  .hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  /* ---------- Hero ---------- */
+  #hero{padding-top:88px;}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:44px;align-items:center;}
+  .hero-kicker{
+    display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--text-dim);
+    border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:6px 14px;margin-bottom:24px;
+  }
+  .hero-id{display:flex;align-items:center;gap:20px;}
+  .avatar{
+    width:96px;height:96px;border-radius:50%;object-fit:cover;flex-shrink:0;
+    border:2px solid var(--teal);padding:3px;background:var(--bg);
+    box-shadow:0 0 0 6px rgba(94,234,212,0.08), 0 16px 32px -12px rgba(94,234,212,0.35);
+  }
+  .hero-name{font-size:52px;line-height:1.05;font-weight:800;letter-spacing:-0.02em;color:var(--text);}
+  .hero-role{font-family:var(--mono);font-size:16px;color:var(--teal);margin-top:14px;}
+  .hero-role span{color:var(--text-faint);}
+  .hero-pitch{color:var(--text-dim);font-size:16px;margin-top:20px;max-width:470px;}
+  .hero-pitch b{color:var(--text);font-weight:600;}
+
+  .hero-cta{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap;}
   .btn{
-    font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:6px;
-    border:1px solid var(--border);color:var(--text-dim);
+    font-family:var(--mono);font-size:13px;padding:11px 16px;border-radius:6px;
+    border:1px solid var(--border);color:var(--text-dim);background:transparent;cursor:pointer;
     display:inline-flex;align-items:center;gap:8px;
     transition:border-color .15s ease, color .15s ease, background .15s ease;
   }
   .btn:hover{border-color:var(--teal-dim);color:var(--text);background:var(--panel);}
   .btn.primary{background:var(--teal);color:#04211C;border-color:var(--teal);font-weight:600;}
   .btn.primary:hover{background:#79f0dc;color:#04211C;}
+  .btn.icon{padding:9px 12px;}
+  .btn.icon i{font-size:19px;}
+  .btn.ai{border-color:var(--amber);color:var(--amber);}
+  .btn.ai:hover{background:rgba(240,180,41,0.08);color:var(--amber);}
+
+  /* ---------- 3D scene ---------- */
+  .scene-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+    box-shadow:0 40px 80px -40px rgba(94,234,212,0.18), 0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .scene{
+    position:relative;height:400px;cursor:grab;touch-action:pan-y;
+    background:radial-gradient(ellipse 70% 60% at 50% 50%, rgba(94,234,212,0.07), transparent 70%);
+  }
+  .scene.grabbing{cursor:grabbing;}
+  .scene canvas{width:100%;height:100%;display:block;}
+  .scene-label{
+    position:absolute;left:0;top:0;pointer-events:none;white-space:nowrap;will-change:transform;
+    font-family:var(--mono);font-size:11px;color:var(--text-dim);
+    background:rgba(16,20,28,0.88);border:1px solid var(--border);border-radius:4px;padding:2px 8px;
+  }
+  .scene-label.core{color:var(--teal);border-color:var(--teal-dim);font-weight:600;}
+  .scene-fallback{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px;
+    font-family:var(--mono);font-size:13px;color:var(--text-dim);line-height:2;
+  }
+  .scene.ready .scene-fallback{display:none;}
+  .scene-hint{
+    position:absolute;left:16px;bottom:12px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);pointer-events:none;
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* ---------- 3D tilt cards ---------- */
+  .tilt{transform-style:preserve-3d;position:relative;}
+  .tilt::after{
+    content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(94,234,212,0.09), transparent 45%);
+    transition:opacity .2s ease;
+  }
+  .tilt:hover::after{opacity:1;}
+  .tilt.reveal.visible{transition:transform .18s ease-out, border-color .2s ease, box-shadow .2s ease, opacity .6s ease;}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:start;}
+  .about-side{display:flex;flex-direction:column;gap:16px;}
+  .profile-card{
+    display:flex;align-items:center;gap:20px;padding:18px;
+    background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  }
+  .profile-card:hover{border-color:var(--teal-dim);}
+  .profile-card img{
+    width:128px;height:128px;border-radius:10px;object-fit:cover;flex-shrink:0;
+    border:1px solid var(--teal-dim);box-shadow:0 18px 32px -16px rgba(94,234,212,0.35);
+  }
+  .pc-name{font-size:18px;font-weight:700;color:var(--text);}
+  .pc-role{font-family:var(--mono);font-size:13px;color:var(--teal);margin:2px 0 10px;}
+  .pc-meta{font-size:13px;color:var(--text-dim);display:flex;align-items:center;gap:8px;margin-top:4px;}
+  .pc-meta i{color:var(--text-faint);font-size:15px;}
+  .pc-meta.open{color:var(--teal);font-family:var(--mono);font-size:12px;}
+  .about-text p{color:var(--text-dim);font-size:15.5px;margin-bottom:16px;}
+  .about-text p b{color:var(--text);font-weight:600;}
+  .strengths{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
+  .strength{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--text-dim);}
+  .strength i{color:var(--teal);font-size:18px;margin-top:1px;flex-shrink:0;}
+  .strength b{color:var(--text);font-weight:600;}
+
+  .terminal{
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal .tbody{padding:22px 22px 26px;font-family:var(--mono);font-size:13.5px;min-height:248px;}
+  .tline{margin-bottom:6px;color:var(--text-dim);}
+  .tline .prompt{color:var(--teal);margin-right:8px;}
+  .tline .out{color:var(--text);}
+  .tline .out.big{font-size:20px;font-weight:700;color:var(--text);display:block;margin:2px 0;}
+  .tline .out.accent{color:var(--amber);}
+  .cursor{display:inline-block;width:8px;height:16px;background:var(--teal);vertical-align:middle;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px;}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 18px 16px;}
+  .stat .num{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--text);line-height:1.1;}
+  .stat .num em{font-style:normal;color:var(--teal);}
+  .stat .lbl{font-size:12.5px;color:var(--text-faint);margin-top:6px;}
 
   /* ---------- Skills ---------- */
-  .skill-groups{display:flex;flex-direction:column;gap:22px;}
-  .skill-row{display:flex;gap:20px;align-items:baseline;flex-wrap:wrap;}
-  .skill-row .label{
-    font-family:var(--mono);font-size:12px;color:var(--text-faint);
-    min-width:150px;flex-shrink:0;
+  .skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+  .skill-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px 22px;}
+  .skill-card:hover{border-color:var(--teal-dim);}
+  .skill-card .label{
+    font-family:var(--mono);font-size:12px;color:var(--text);margin-bottom:14px;
+    display:flex;align-items:center;gap:8px;
   }
+  .skill-card .label i{color:var(--teal);font-size:16px;}
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{
-    font-family:var(--mono);font-size:12.5px;padding:6px 12px;border-radius:5px;
-    background:var(--panel);border:1px solid var(--border);color:var(--text-dim);
+    font-family:var(--mono);font-size:12px;padding:5px 11px;border-radius:5px;
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text-dim);
   }
+  .chip.strong{color:var(--teal);border-color:var(--teal-dim);}
 
   /* ---------- Experience ---------- */
   .exp-card{
@@ -176,29 +270,43 @@
   .exp-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
   .exp-list li{list-style:none;padding-left:20px;position:relative;color:var(--text-dim);font-size:14.5px;}
   .exp-list li::before{content:'▸';position:absolute;left:0;color:var(--teal-dim);}
+  .exp-list li b{color:var(--text);font-weight:600;}
   .exp-stack{margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft);}
 
   /* ---------- Projects ---------- */
   .projects{display:flex;flex-direction:column;gap:20px;}
   .proj-card{
     background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
-    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-  .proj-card:hover{border-color:var(--teal-dim);transform:translateY(-3px);box-shadow:0 16px 32px -20px rgba(94,234,212,0.18);}
+  .proj-card:hover{border-color:var(--teal-dim);box-shadow:0 24px 40px -24px rgba(94,234,212,0.22);}
+  .proj-card.featured{border-color:var(--teal-dim);}
   .proj-status{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--text-faint);}
   .proj-status .pdot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;}
+  .proj-status.muted .pdot{background:var(--text-faint);animation:none;}
   .proj-head{
     display:flex;justify-content:space-between;align-items:center;gap:12px;
     padding:16px 24px;border-bottom:1px solid var(--border-soft);background:var(--panel-2);flex-wrap:wrap;
   }
   .proj-filename{font-family:var(--mono);font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;}
   .proj-filename .ext{color:var(--text-faint);}
+  .proj-head-right{display:flex;align-items:center;gap:16px;}
   .proj-date{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);}
-  .proj-link{font-family:var(--mono);font-size:12px;color:var(--teal);display:flex;align-items:center;gap:6px;}
+  .badge{font-family:var(--mono);font-size:10.5px;color:#04211C;background:var(--amber);padding:2px 8px;border-radius:4px;font-weight:600;}
   .proj-body{padding:22px 24px 24px;}
+  .proj-tagline{color:var(--text);font-size:15px;margin-bottom:16px;}
+  .proj-flow{
+    display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:18px;
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+  }
+  .proj-flow span{border:1px solid var(--border);background:var(--panel-2);border-radius:4px;padding:3px 9px;color:var(--text-dim);}
+  .proj-flow i{color:var(--teal-dim);}
   .proj-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
   .proj-list li{list-style:none;padding-left:20px;position:relative;color:var(--text-dim);font-size:14px;}
   .proj-list li::before{content:'▸';position:absolute;left:0;color:var(--teal-dim);}
+  .proj-list li b{color:var(--text);font-weight:600;}
+  .proj-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;}
+  .proj-link{font-family:var(--mono);font-size:12px;color:var(--teal);display:flex;align-items:center;gap:6px;}
+  .proj-link:hover{text-decoration:underline;}
 
   /* ---------- Education ---------- */
   .edu-list{display:flex;flex-direction:column;}
@@ -220,7 +328,7 @@
 
   /* ---------- Contact / Footer ---------- */
   #contact .title{margin-bottom:16px;}
-  #contact .sub{color:var(--text-dim);font-size:15px;max-width:520px;margin-bottom:36px;}
+  #contact .sub{color:var(--text-dim);font-size:15px;max-width:540px;margin-bottom:36px;}
   .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
   .contact-card{
     display:flex;align-items:center;gap:14px;
@@ -232,30 +340,77 @@
   .contact-card .cl{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
   .contact-card .cv{font-size:14px;color:var(--text);margin-top:2px;word-break:break-word;}
 
-  /* ---------- Interactive console ---------- */
-  .console{
-    margin-top:52px;background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
-  }
-  .console .tbar .tpath{margin-left:12px;}
-  .console-body{padding:20px 24px;font-family:var(--mono);font-size:13.5px;max-height:260px;overflow-y:auto;}
-  .console-log .tline{color:var(--text-dim);white-space:pre-wrap;word-break:break-word;}
-  .console-log .tline .prompt{color:var(--teal);}
-  .console-log .tline .out.err{color:var(--coral);}
-  .console-log .tline .out.ok{color:var(--teal);}
-  .console-input-row{
-    display:flex;align-items:center;gap:8px;padding:8px 24px 20px;font-family:var(--mono);font-size:13.5px;
-  }
-  .console-input-row .prompt{color:var(--teal);}
-  .console-input-row input{
-    flex:1;background:transparent;border:none;outline:none;color:var(--text);
-    font-family:var(--mono);font-size:13.5px;caret-color:var(--teal);
-  }
-  .console-input-row input::placeholder{color:var(--text-faint);}
-  .console-hint{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
-
   footer{padding:32px 0 60px;font-family:var(--mono);font-size:12px;color:var(--text-faint);text-align:center;}
 
+  /* ---------- AI chat ---------- */
+  .chat-launcher{
+    position:fixed;right:24px;bottom:24px;z-index:50;
+    display:flex;align-items:center;gap:10px;padding:12px 18px 12px 14px;border-radius:999px;
+    background:var(--teal);color:#04211C;border:none;cursor:pointer;
+    font-family:var(--mono);font-size:13px;font-weight:600;
+    box-shadow:0 12px 32px -8px rgba(94,234,212,0.45);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .chat-launcher:hover{transform:translateY(-2px);box-shadow:0 16px 36px -8px rgba(94,234,212,0.6);}
+  .chat-launcher i{font-size:19px;}
+  .chat-launcher.hidden{display:none;}
+
+  .chat{
+    position:fixed;right:24px;bottom:24px;z-index:60;width:380px;max-width:calc(100vw - 32px);
+    height:560px;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);
+    display:flex;flex-direction:column;
+    background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(94,234,212,0.06);
+    transform-origin:bottom right;transform:scale(.92) translateY(10px);opacity:0;pointer-events:none;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .chat.open{transform:none;opacity:1;pointer-events:auto;}
+  .chat-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border-soft);background:var(--panel-2);}
+  .chat-avatar{
+    width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--teal-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    background:linear-gradient(135deg,var(--teal),var(--teal-dim));color:#04211C;font-family:var(--mono);font-weight:700;font-size:13px;
+  }
+  .chat-title{font-size:14px;font-weight:600;color:var(--text);}
+  .chat-sub{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);display:flex;align-items:center;gap:6px;}
+  .chat-close{
+    margin-left:auto;flex-shrink:0;width:34px;height:34px;border-radius:8px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+    background:var(--panel);border:1px solid var(--border);color:var(--text-dim);
+    transition:color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .chat-close:hover,.chat-close:focus-visible{color:var(--coral);border-color:var(--coral);background:rgba(240,120,90,0.08);outline:none;}
+  .chat-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;}
+  .msg{max-width:86%;padding:10px 13px;border-radius:12px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word;}
+  .msg.bot{background:var(--panel-2);border:1px solid var(--border);color:var(--text-dim);border-bottom-left-radius:4px;align-self:flex-start;}
+  .msg.user{background:var(--teal);color:#04211C;border-bottom-right-radius:4px;align-self:flex-end;}
+  .msg.typing{display:flex;gap:4px;align-items:center;}
+  .msg.typing span{width:6px;height:6px;border-radius:50%;background:var(--text-faint);animation:bounce 1s infinite;}
+  .msg.typing span:nth-child(2){animation-delay:.15s;}
+  .msg.typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5;}40%{transform:translateY(-4px);opacity:1;}}
+  .chat-suggest{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px;}
+  .chat-suggest button{
+    font-family:var(--mono);font-size:11px;color:var(--text-dim);background:var(--panel-2);
+    border:1px solid var(--border);border-radius:999px;padding:5px 10px;cursor:pointer;
+  }
+  .chat-suggest button:hover{border-color:var(--teal-dim);color:var(--teal);}
+  .chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border-soft);}
+  .chat-form input{
+    flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;
+    color:var(--text);font-family:var(--sans);font-size:14px;outline:none;
+  }
+  .chat-form input:focus{border-color:var(--teal-dim);}
+  .chat-form button{
+    background:var(--teal);color:#04211C;border:none;border-radius:8px;width:42px;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .chat-form button:disabled{opacity:.5;cursor:default;}
+  .chat-note{font-family:var(--mono);font-size:10px;color:var(--text-faint);text-align:center;padding:0 12px 10px;}
+
   /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    .hero-name{font-size:44px;}
+  }
   @media (max-width:968px){
     .sidebar{display:none;}
     main{margin-left:0;}
@@ -268,18 +423,50 @@
     .topbar a.active{color:var(--teal);}
     .container{padding:0 20px;}
     section{padding:64px 0;}
-    .skill-row{flex-direction:column;gap:10px;}
+    #hero{padding-top:48px;}
+    .hero-grid,.about-grid{grid-template-columns:1fr;gap:32px;}
     .exp-meta{text-align:left;}
     .contact-grid{grid-template-columns:1fr;}
   }
-  @media (max-width:520px){
-    .terminal .tbody{font-size:13px;padding:22px 18px 26px;}
+  @media (max-width:640px){
+    .hero-name{font-size:38px;}
+    .scene{height:320px;}
+    .skill-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
     h2.title{font-size:22px;}
+    .chat{right:16px;bottom:16px;height:calc(100vh - 32px);height:calc(100dvh - 32px);}
+    .chat-launcher{right:16px;bottom:16px;}
+    .chat-launcher .lbl{display:none;}
+    .chat-launcher{padding:14px;}
+    .avatar{width:72px;height:72px;}
   }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .cursor{animation:none;}
+    .cursor,.dot,.proj-status .pdot{animation:none;}
+  }
+
+  /* ---------- Print: clean resume via Save as PDF ---------- */
+  @media print{
+    :root{
+      --bg:#fff;--panel:#fff;--panel-2:#fff;--border:#d4d4d8;--border-soft:#e4e4e7;
+      --text:#111;--text-dim:#333;--text-faint:#666;--teal:#0f766e;--teal-dim:#0f766e;--amber:#92400e;
+    }
+    @page{margin:12mm;}
+    body{font-size:12px;}
+    .bg-grid,.sidebar,.topbar,.scene-card,.terminal,.hero-cta,.chat,.chat-launcher,footer,.hero-kicker{display:none !important;}
+    main{margin-left:0;}
+    .container{max-width:none;padding:0;}
+    section{padding:14px 0;}
+    #hero{padding-top:0;}
+    .hero-grid,.about-grid{display:block;}
+    .hero-name{font-size:28px;}
+    h2.title{font-size:16px;margin-bottom:12px;}
+    .reveal{opacity:1 !important;transform:none !important;}
+    .tilt{transform:none !important;}
+    .tilt::after{display:none;}
+    .proj-card,.exp-card,.skill-card,.stat{break-inside:avoid;box-shadow:none !important;}
+    .stats{margin-top:12px;}
   }
 </style>
 </head>
@@ -289,6 +476,7 @@
 
 <div class="topbar" id="topbar">
   <a href="#hero" class="active">home</a>
+  <a href="#about">about</a>
   <a href="#skills">skills</a>
   <a href="#experience">experience</a>
   <a href="#projects">projects</a>
@@ -301,11 +489,12 @@
   <div class="brand-sub">backend engineer</div>
   <nav id="sidenav">
     <a href="#hero" class="active"><span class="idx">01</span> home</a>
-    <a href="#skills"><span class="idx">02</span> skills</a>
-    <a href="#experience"><span class="idx">03</span> experience</a>
-    <a href="#projects"><span class="idx">04</span> projects</a>
-    <a href="#education"><span class="idx">05</span> education</a>
-    <a href="#contact"><span class="idx">06</span> contact</a>
+    <a href="#about"><span class="idx">02</span> about</a>
+    <a href="#skills"><span class="idx">03</span> skills</a>
+    <a href="#experience"><span class="idx">04</span> experience</a>
+    <a href="#projects"><span class="idx">05</span> projects</a>
+    <a href="#education"><span class="idx">06</span> education</a>
+    <a href="#contact"><span class="idx">07</span> contact</a>
   </nav>
   <div class="status"><span class="dot"></span> open to work</div>
 </aside>
@@ -313,56 +502,122 @@
 <main>
 
   <section id="hero">
-    <div class="container">
-      <div class="terminal">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span class="dot"></span> open to full-time backend &amp; full-stack roles</div>
+        <div class="hero-id">
+          <img class="avatar" src="assets/pratik.jpg" alt="Pratik Bhor" width="96" height="96">
+          <h1 class="hero-name">Pratik Bhor</h1>
+        </div>
+        <div class="hero-role">Backend Developer <span>// Java · Spring Boot · REST APIs</span></div>
+        <p class="hero-pitch">I build <b>secure, production-ready backends</b>, from JWT &amp; OAuth2 auth flows to AI-powered REST APIs, and ship them end-to-end with React frontends. My latest project is <b>live in production</b>.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects"><i class="ti ti-code"></i> view projects</a>
+          <button class="btn ai" type="button" data-open-chat><i class="ti ti-sparkles"></i> ask my AI</button>
+          <button class="btn" type="button" data-print><i class="ti ti-download"></i> resume.pdf</button>
+          <a class="btn icon" href="https://linkedin.com/in/pratik-bhor-9a1a27259" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+          <a class="btn icon" href="https://github.com/Pratikbhor2004" target="_blank" rel="noopener" aria-label="GitHub"><i class="ti ti-brand-github"></i></a>
+        </div>
+      </div>
+
+      <div class="scene-card">
         <div class="tbar">
           <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
-          <span class="tpath">~/pratik-bhor — zsh</span>
+          <span class="tpath">~/stack.3d</span>
+          <span class="tright"><span class="dot"></span> live</span>
         </div>
-        <div class="tbody" id="typeTarget"></div>
+        <div class="scene" id="scene3d" aria-label="Interactive 3D model of Pratik's tech stack: Spring Boot at the core, connected to React, JWT and OAuth2, MySQL, Gemini API, Docker and AWS">
+          <div class="scene-fallback">Spring Boot ⇄ React · JWT/OAuth2 · MySQL<br>Gemini API · Docker · AWS</div>
+          <div class="scene-hint"><i class="ti ti-hand-move"></i> drag to rotate</div>
+        </div>
       </div>
-      <div class="hero-cta">
-        <a class="btn primary" href="#projects"><i class="ti ti-code"></i> view projects</a>
-        <a class="btn" href="mailto:pratikbhor2004@gmail.com"><i class="ti ti-mail"></i> get in touch</a>
-        <a class="btn" href="https://github.com/pratikbhor" target="_blank" rel="noopener"><i class="ti ti-brand-github"></i> github</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="eyebrow">02 / about.md</div>
+      <h2 class="title">// about me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a <b>Computer Engineering graduate</b> (SPPU, 2026, CGPA 8.32) who enjoys the part of software users never see: <b>APIs, authentication, data models</b>, and the plumbing that makes AI features usable in real products.</p>
+          <p>I built and deployed <b>Resume Analyzer AI Pro</b>, a full-stack app on Spring Boot, React, MySQL and the Gemini API. During my <b>AI internship</b> (Edunet Foundation, a Microsoft &amp; SAP initiative) I built a real-time face-recognition attendance system. I keep my fundamentals sharp with <b>200+ LeetCode problems</b>.</p>
+          <div class="strengths">
+            <div class="strength"><i class="ti ti-shield-lock"></i><div><b>Secure by default:</b> Spring Security, JWT, Google OAuth2, email verification &amp; password-reset flows.</div></div>
+            <div class="strength"><i class="ti ti-api"></i><div><b>API-first:</b> RESTful Spring Boot services backed by MySQL, with Hibernate &amp; JDBC.</div></div>
+            <div class="strength"><i class="ti ti-rocket"></i><div><b>Ships end-to-end:</b> React frontends, AI integrations, and real deployments.</div></div>
+          </div>
+        </div>
+        <div class="about-side">
+          <div class="profile-card tilt">
+            <img src="assets/pratik.jpg" alt="Pratik Bhor" width="128" height="128">
+            <div>
+              <div class="pc-name">Pratik Bhor</div>
+              <div class="pc-role">Backend Developer</div>
+              <div class="pc-meta"><i class="ti ti-map-pin"></i> Pune, India</div>
+              <div class="pc-meta"><i class="ti ti-school"></i> B.E. Computer Eng. · 2026</div>
+              <div class="pc-meta open"><span class="dot"></span> open to work</div>
+            </div>
+          </div>
+          <div class="terminal">
+            <div class="tbar">
+              <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+              <span class="tpath">~/pratik-bhor — zsh</span>
+            </div>
+            <div class="tbody" id="typeTarget"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat tilt"><div class="num" data-count="200">0<em>+</em></div><div class="lbl">DSA problems solved</div></div>
+        <div class="stat tilt"><div class="num">8.32</div><div class="lbl">CGPA, B.E. Computer Eng.</div></div>
+        <div class="stat tilt"><div class="num" data-count="3">0</div><div class="lbl">shipped projects</div></div>
+        <div class="stat tilt"><div class="num" data-count="2">0</div><div class="lbl">live in production</div></div>
       </div>
     </div>
   </section>
 
   <section id="skills">
     <div class="container">
-      <div class="eyebrow">02 / skills.json</div>
+      <div class="eyebrow">03 / skills.json</div>
       <h2 class="title">// tech stack</h2>
-      <div class="skill-groups">
-        <div class="skill-row">
-          <div class="label">languages</div>
+      <div class="skill-grid">
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-server-2"></i> backend</div>
           <div class="chips">
-            <span class="chip">Java</span><span class="chip">Python</span><span class="chip">JavaScript</span>
-            <span class="chip">SQL</span><span class="chip">HTML</span><span class="chip">CSS</span>
+            <span class="chip strong">Java</span><span class="chip strong">Spring Boot</span><span class="chip strong">REST APIs</span>
+            <span class="chip">Hibernate</span><span class="chip">JDBC</span><span class="chip">Python</span>
           </div>
         </div>
-        <div class="skill-row">
-          <div class="label">backend &amp; frameworks</div>
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-shield-lock"></i> security &amp; auth</div>
           <div class="chips">
-            <span class="chip">Spring Boot</span><span class="chip">REST APIs</span>
-            <span class="chip">Hibernate</span><span class="chip">JDBC</span>
+            <span class="chip strong">Spring Security</span><span class="chip strong">JWT</span><span class="chip">Google OAuth2</span><span class="chip">Email verification (Brevo)</span>
           </div>
         </div>
-        <div class="skill-row">
-          <div class="label">databases</div>
-          <div class="chips"><span class="chip">MySQL</span></div>
-        </div>
-        <div class="skill-row">
-          <div class="label">cloud &amp; devops</div>
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-database"></i> data</div>
           <div class="chips">
-            <span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Git</span>
-            <span class="chip">GitHub</span><span class="chip">Linux</span>
+            <span class="chip strong">MySQL</span><span class="chip">SQL</span><span class="chip">Firebase</span><span class="chip">Pandas</span><span class="chip">MySQL Workbench</span>
           </div>
         </div>
-        <div class="skill-row">
-          <div class="label">tools</div>
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-brain"></i> AI integration</div>
           <div class="chips">
-            <span class="chip">VS Code</span><span class="chip">Eclipse IDE</span><span class="chip">MySQL Workbench</span>
+            <span class="chip strong">Google Gemini API</span><span class="chip">OpenCV</span><span class="chip">face_recognition / dlib</span><span class="chip">Apache PDFBox</span>
+          </div>
+        </div>
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-layout"></i> frontend</div>
+          <div class="chips">
+            <span class="chip strong">React.js</span><span class="chip">JavaScript</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Responsive design</span>
+          </div>
+        </div>
+        <div class="skill-card tilt">
+          <div class="label"><i class="ti ti-cloud"></i> cloud, devops &amp; tools</div>
+          <div class="chips">
+            <span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Linux</span><span class="chip">VS Code</span><span class="chip">Eclipse</span>
           </div>
         </div>
       </div>
@@ -371,9 +626,9 @@
 
   <section id="experience">
     <div class="container">
-      <div class="eyebrow">03 / work_history</div>
+      <div class="eyebrow">04 / work_history</div>
       <h2 class="title">// experience</h2>
-      <div class="exp-card">
+      <div class="exp-card tilt">
         <div class="exp-head">
           <div>
             <div class="exp-role">Artificial Intelligence Intern</div>
@@ -382,10 +637,10 @@
           <div class="exp-meta">Nov 2024 – Dec 2024<br>Remote, India</div>
         </div>
         <ul class="exp-list">
-          <li>Developed an automated, real-time Face Recognition Attendance Management System using Python, OpenCV, and Tkinter.</li>
-          <li>Integrated deep-learning facial embeddings with face_recognition and dlib for real-time face detection, user registration, and log management.</li>
-          <li>Designed a UI featuring real-time camera feeds and color-coded status feedback for immediate attendance verification.</li>
-          <li>Implemented timestamped audit logging and data tracking using Pandas and Firebase.</li>
+          <li>Built an automated, <b>real-time Face Recognition Attendance Management System</b> using Python, OpenCV and Tkinter.</li>
+          <li>Integrated deep-learning facial embeddings (face_recognition, dlib) for live face detection, user registration and log management.</li>
+          <li>Designed a UI with real-time camera feeds and color-coded status feedback for instant attendance verification.</li>
+          <li>Implemented <b>timestamped audit logging</b> and data tracking with Pandas and Firebase.</li>
         </ul>
         <div class="exp-stack">
           <div class="chips">
@@ -399,74 +654,83 @@
 
   <section id="projects">
     <div class="container">
-      <div class="eyebrow">04 / repositories</div>
+      <div class="eyebrow">05 / repositories</div>
       <h2 class="title">// projects</h2>
       <div class="projects">
 
-        <div class="proj-card">
+        <div class="proj-card featured tilt">
           <div class="proj-head">
             <div class="proj-filename"><i class="ti ti-folder"></i> resume-analyzer-ai-pro <span class="ext">/ full-stack</span></div>
-            <div style="display:flex;align-items:center;gap:16px;">
+            <div class="proj-head-right">
+              <span class="badge">featured</span>
               <span class="proj-status"><span class="pdot"></span> deployed</span>
               <span class="proj-date">Jul 2026</span>
             </div>
           </div>
           <div class="proj-body">
+            <p class="proj-tagline">ATS filters reject resumes without telling candidates why. This app scores a resume against a job description and explains exactly what to fix.</p>
+            <div class="proj-flow">
+              <span>React</span><i class="ti ti-arrows-right-left"></i>
+              <span>Spring Boot API</span><i class="ti ti-arrows-right-left"></i>
+              <span>MySQL</span><i class="ti ti-plus"></i>
+              <span>Gemini API</span><i class="ti ti-plus"></i>
+              <span>PDFBox</span>
+            </div>
             <ul class="proj-list">
-              <li>Built an AI-powered Resume Analyzer using React, Spring Boot, and MySQL to evaluate ATS compatibility, extract technical skills, and give personalized resume improvement suggestions via the Google Gemini API.</li>
-              <li>Implemented PDF resume parsing with Apache PDFBox, job description matching, missing skill detection, interview question generation, and learning roadmap recommendations through RESTful APIs.</li>
-              <li>Developed secure authentication using Spring Security, JWT, Google OAuth2, and Brevo for email verification and password reset with a scalable full-stack architecture.</li>
+              <li>Built an <b>AI-powered resume analyzer</b> (React, Spring Boot, MySQL) that scores ATS compatibility, extracts technical skills and gives personalised improvement suggestions via the Google Gemini API.</li>
+              <li>Implemented PDF parsing with Apache PDFBox, <b>job-description matching</b>, missing-skill detection, interview-question generation and learning-roadmap recommendations through RESTful APIs.</li>
+              <li>Built <b>secure authentication</b> with Spring Security, JWT and Google OAuth2, plus Brevo-powered email verification and password reset.</li>
             </ul>
             <div class="chips">
               <span class="chip">React.js</span><span class="chip">Spring Boot</span><span class="chip">MySQL</span>
-              <span class="chip">Google Gemini API</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">REST APIs</span>
+              <span class="chip">Google Gemini API</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">OAuth2</span><span class="chip">REST APIs</span>
             </div>
-            <div style="margin-top:18px;">
-              <a class="proj-link" href="https://resume-analyser-kp0f.onrender.com" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> resume-analyser-kp0f.onrender.com</a>
+            <div class="proj-links">
+              <a class="proj-link" href="https://resume-analyser-kp0f.onrender.com" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> live demo</a>
             </div>
           </div>
         </div>
 
-        <div class="proj-card">
+        <div class="proj-card tilt">
           <div class="proj-head">
             <div class="proj-filename"><i class="ti ti-folder"></i> airline-management-system <span class="ext">/ desktop</span></div>
-            <div style="display:flex;align-items:center;gap:16px;">
-              <span class="proj-status" style="color:var(--text-faint);"><span class="pdot" style="background:var(--text-faint);animation:none;"></span> source only</span>
+            <div class="proj-head-right">
+              <span class="proj-status muted"><span class="pdot"></span> source only</span>
               <span class="proj-date">Jan 2025</span>
             </div>
           </div>
           <div class="proj-body">
             <ul class="proj-list">
-              <li>Developed a desktop-based Airline Management System using Java Swing to manage flight bookings, passenger records, ticket reservations, and cancellations.</li>
-              <li>Implemented core modules including user authentication, flight scheduling, booking management, and database operations using Java and SQL.</li>
-              <li>Designed an interactive GUI with Java Swing and integrated JDBC with MySQL for efficient database connectivity and streamlined data management.</li>
+              <li>Built a desktop <b>Airline Management System</b> in Java Swing covering flight bookings, passenger records, reservations and cancellations.</li>
+              <li>Implemented user authentication, flight scheduling, booking management and database operations in Java and SQL.</li>
+              <li>Connected the Swing GUI to MySQL via <b>JDBC</b> for reliable, streamlined data management.</li>
             </ul>
             <div class="chips">
               <span class="chip">Java</span><span class="chip">Java Swing</span><span class="chip">JDBC</span><span class="chip">MySQL</span><span class="chip">SQL</span>
             </div>
-            <div style="margin-top:18px;">
-              <a class="proj-link" href="https://github.com/Pratikbhor2004/Airline-Management-System" target="_blank" rel="noopener"><i class="ti ti-brand-github"></i> github.com/Pratikbhor2004/Airline-Management-System</a>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/Pratikbhor2004/Airline-Management-System" target="_blank" rel="noopener"><i class="ti ti-brand-github"></i> source code</a>
             </div>
           </div>
         </div>
 
-        <div class="proj-card">
+        <div class="proj-card tilt">
           <div class="proj-head">
-            <div class="proj-filename"><i class="ti ti-folder"></i> tikone-global-website <span class="ext">/ frontend</span></div>
-            <div style="display:flex;align-items:center;gap:16px;">
+            <div class="proj-filename"><i class="ti ti-folder"></i> tikone-global-website <span class="ext">/ client work</span></div>
+            <div class="proj-head-right">
               <span class="proj-status"><span class="pdot"></span> deployed</span>
               <span class="proj-date">Sept 2025</span>
             </div>
           </div>
           <div class="proj-body">
             <ul class="proj-list">
-              <li>Developed a responsive business website using HTML, CSS, and JavaScript to showcase services with an optimized UI/UX across devices.</li>
-              <li>Integrated WhatsApp chat functionality for real-time customer communication and improved user engagement.</li>
+              <li>Built a <b>responsive business website</b> in HTML, CSS and JavaScript showcasing the client's services, optimised for every device.</li>
+              <li>Integrated WhatsApp chat for real-time customer communication and better engagement.</li>
             </ul>
             <div class="chips">
               <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span><span class="chip">Responsive Design</span><span class="chip">WhatsApp Integration</span>
             </div>
-            <div style="margin-top:18px;">
+            <div class="proj-links">
               <a class="proj-link" href="https://tikoneglobal.com" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> tikoneglobal.com</a>
             </div>
           </div>
@@ -478,7 +742,7 @@
 
   <section id="education">
     <div class="container">
-      <div class="eyebrow">05 / academic_record</div>
+      <div class="eyebrow">06 / academic_record</div>
       <h2 class="title">// education</h2>
       <div class="edu-list">
         <div class="edu-item">
@@ -519,9 +783,9 @@
 
   <section id="contact">
     <div class="container">
-      <div class="eyebrow">06 / connect</div>
+      <div class="eyebrow">07 / connect</div>
       <h2 class="title">// get in touch</h2>
-      <p class="sub">Looking for backend or full-stack opportunities. Feel free to reach out — happy to talk about Spring Boot, system design, or the next project.</p>
+      <p class="sub">I'm looking for backend or full-stack developer roles. Reach out directly, or <a href="#" data-open-chat style="color:var(--teal);">ask my AI assistant</a> anything about my work first.</p>
       <div class="contact-grid">
         <a class="contact-card" href="mailto:pratikbhor2004@gmail.com">
           <i class="ti ti-mail"></i>
@@ -531,30 +795,15 @@
           <i class="ti ti-phone"></i>
           <div><div class="cl">Phone</div><div class="cv">+91 8010576707</div></div>
         </a>
-        <a class="contact-card" href="https://github.com/pratikbhor" target="_blank" rel="noopener">
+        <a class="contact-card" href="https://github.com/Pratikbhor2004" target="_blank" rel="noopener">
           <i class="ti ti-brand-github"></i>
-          <div><div class="cl">GitHub</div><div class="cv">github.com/pratikbhor</div></div>
+          <div><div class="cl">GitHub</div><div class="cv">github.com/Pratikbhor2004</div></div>
         </a>
-        <a class="contact-card" href="https://linkedin.com/in/pratik-bhor" target="_blank" rel="noopener">
+        <a class="contact-card" href="https://linkedin.com/in/pratik-bhor-9a1a27259" target="_blank" rel="noopener">
           <i class="ti ti-brand-linkedin"></i>
-          <div><div class="cl">LinkedIn</div><div class="cv">linkedin.com/in/pratik-bhor</div></div>
+          <div><div class="cl">LinkedIn</div><div class="cv">linkedin.com/in/pratik-bhor-9a1a27259</div></div>
         </a>
       </div>
-
-      <div class="console">
-        <div class="tbar">
-          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
-          <span class="tpath">try it — ~/pratik-bhor</span>
-        </div>
-        <div class="console-body" id="consoleLog">
-          <div class="tline"><span class="prompt">$</span><span class="out">type <b style="color:var(--amber);">help</b> to see what this does</span></div>
-        </div>
-        <div class="console-input-row">
-          <span class="prompt">$</span>
-          <input id="consoleInput" type="text" placeholder="help, projects, skills, contact, sudo hire-me" autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-      <div class="console-hint">a tiny shell — try: help · about · skills · projects · contact · sudo hire-me</div>
     </div>
   </section>
 
@@ -562,29 +811,56 @@
 
 </main>
 
+<!-- AI assistant -->
+<button class="chat-launcher" id="chatLauncher" type="button" data-open-chat aria-label="Ask my AI about me">
+  <i class="ti ti-sparkles"></i><span class="lbl">ask my AI about me</span>
+</button>
+<div class="chat" id="chat" role="dialog" aria-label="Ask about Pratik" aria-hidden="true">
+  <div class="chat-head">
+    <img class="chat-avatar" src="assets/pratik.jpg" alt="">
+    <div>
+      <div class="chat-title">Ask about Pratik</div>
+      <div class="chat-sub"><span class="dot"></span> AI assistant · answers from his resume</div>
+    </div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Close chat" title="Close (Esc)"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="chat-log" id="chatLog" aria-live="polite"></div>
+  <div class="chat-suggest" id="chatSuggest">
+    <button type="button">What's his strongest skill?</button>
+    <button type="button">Tell me about his best project</button>
+    <button type="button">Is he open to work?</button>
+    <button type="button">How do I contact him?</button>
+  </div>
+  <form class="chat-form" id="chatForm">
+    <input id="chatInput" type="text" placeholder="Ask anything about Pratik…" autocomplete="off" maxlength="500">
+    <button type="submit" id="chatSend" aria-label="Send"><i class="ti ti-send"></i></button>
+  </form>
+  <div class="chat-note">AI answers can be imperfect — confirm details with Pratik.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-  // typewriter hero
+  // Deployed URL of chat-worker/worker.js (see README). Empty = built-in offline answers.
+  const CHAT_ENDPOINT = '';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  // ---------- typewriter (about) ----------
   const lines = [
-    {p:'$', t:'whoami', d:0},
-    {p:'', t:'Pratik Bhor', d:0, cls:'big'},
-    {p:'$', t:'cat role.txt', d:0},
-    {p:'', t:'Backend Developer · Java & Spring Boot', d:0, cls:'accent'},
-    {p:'$', t:'cat status.txt', d:0},
-    {p:'', t:'Final-year B.E. Computer Engineering · Pune, India', d:0},
-    {p:'$', t:'echo $FOCUS', d:0},
-    {p:'', t:'REST APIs · Spring Security · MySQL · Cloud', d:0}
+    {p:'$', t:'whoami'},
+    {p:'', t:'Pratik Bhor', cls:'big'},
+    {p:'$', t:'cat role.txt'},
+    {p:'', t:'Backend Developer · Java & Spring Boot', cls:'accent'},
+    {p:'$', t:'cat education.txt'},
+    {p:'', t:'B.E. Computer Engineering, SPPU (2026) · Pune, India'},
+    {p:'$', t:'echo $FOCUS'},
+    {p:'', t:'REST APIs · Spring Security · MySQL · AI integration'}
   ];
   const target = document.getElementById('typeTarget');
   let li = 0;
 
-  function typeLine(){
-    if(li >= lines.length){
-      const c = document.createElement('span');
-      c.className = 'cursor';
-      target.appendChild(c);
-      return;
-    }
-    const cfg = lines[li];
+  function makeRow(cfg){
     const row = document.createElement('div');
     row.className = 'tline';
     if(cfg.p){
@@ -597,9 +873,18 @@
     out.className = 'out' + (cfg.cls ? ' ' + cfg.cls : '');
     row.appendChild(out);
     target.appendChild(row);
-
+    return out;
+  }
+  function typeLine(){
+    if(li >= lines.length){
+      const c = document.createElement('span');
+      c.className = 'cursor';
+      target.appendChild(c);
+      return;
+    }
+    const cfg = lines[li];
+    const out = makeRow(cfg);
     let ci = 0;
-    const speed = cfg.p ? 42 : 14;
     const timer = setInterval(()=>{
       out.textContent += cfg.t[ci];
       ci++;
@@ -608,29 +893,18 @@
         li++;
         setTimeout(typeLine, cfg.p ? 180 : 320);
       }
-    }, speed);
+    }, cfg.p ? 42 : 14);
   }
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    lines.forEach(cfg=>{
-      const row = document.createElement('div');
-      row.className = 'tline';
-      if(cfg.p){
-        const p = document.createElement('span');
-        p.className = 'prompt';
-        p.textContent = cfg.p + ' ';
-        row.appendChild(p);
-      }
-      const out = document.createElement('span');
-      out.className = 'out' + (cfg.cls ? ' ' + cfg.cls : '');
-      out.textContent = cfg.t;
-      row.appendChild(out);
-      target.appendChild(row);
-    });
+  if(reduceMotion){
+    lines.forEach(cfg=>{ makeRow(cfg).textContent = cfg.t; });
   } else {
-    typeLine();
+    // start typing once the terminal scrolls into view
+    new IntersectionObserver((entries, o)=>{
+      if(entries[0].isIntersecting){ o.disconnect(); typeLine(); }
+    }, {threshold:0.3}).observe(target);
   }
 
-  // active nav highlighting
+  // ---------- active nav highlighting ----------
   const sections = document.querySelectorAll('section[id]');
   const sideLinks = document.querySelectorAll('#sidenav a');
   const topLinks = document.querySelectorAll('#topbar a');
@@ -639,14 +913,14 @@
       a.classList.toggle('active', a.getAttribute('href') === '#'+id);
     });
   };
-  const obs = new IntersectionObserver((entries)=>{
+  const navObs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting) setActive(e.target.id);
     });
   }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
-  sections.forEach(s=>obs.observe(s));
+  sections.forEach(s=>navObs.observe(s));
 
-  // uptime counter
+  // ---------- uptime counter ----------
   const uptimeEl = document.createElement('div');
   uptimeEl.className = 'uptime';
   document.querySelector('.sidebar .status').insertAdjacentElement('afterend', uptimeEl);
@@ -661,8 +935,8 @@
     uptimeEl.innerHTML = 'session uptime <b>'+fmtUptime(Date.now()-start)+'</b>';
   }, 1000);
 
-  // scroll reveal
-  const revealables = document.querySelectorAll('.eyebrow, h2.title, .exp-card, .proj-card, .edu-item, .ach-item, .contact-card, .console, #hero .terminal, #hero .hero-cta, #contact .sub');
+  // ---------- scroll reveal ----------
+  const revealables = document.querySelectorAll('.eyebrow, h2.title, .about-text, .profile-card, .terminal, .stat, .skill-card, .exp-card, .proj-card, .edu-item, .ach-item, .contact-card, #contact .sub, .hero-copy, .scene-card');
   revealables.forEach(el=>el.classList.add('reveal'));
   const revealObs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
@@ -674,45 +948,332 @@
   }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
   revealables.forEach(el=>revealObs.observe(el));
 
-  // interactive console easter egg
-  const consoleLog = document.getElementById('consoleLog');
-  const consoleInput = document.getElementById('consoleInput');
-  const commands = {
-    help: 'available commands: about, skills, projects, experience, contact, resume, clear, sudo hire-me',
-    about: 'Pratik Bhor — backend developer focused on Java, Spring Boot, and REST APIs. Final-year B.E. Computer Engineering @ SPPU, Pune.',
-    skills: 'Java · Spring Boot · REST APIs · Hibernate · JDBC · MySQL · AWS · Docker · Git',
-    projects: '3 repos found: resume-analyzer-ai-pro, airline-management-system, tikone-global-website — scroll up to view',
-    experience: 'AI Intern @ Edunet Foundation (Microsoft & SAP CSR Initiative) — Nov–Dec 2024',
-    contact: 'email: pratikbhor2004@gmail.com · phone: +91 8010576707 · github.com/pratikbhor',
-    resume: 'tip: use your browser\'s Print > Save as PDF on this page for a shareable copy',
-    'sudo hire-me': '[sudo] password for recruiter: ****\npermission granted. redirecting to mailto:pratikbhor2004@gmail.com ...'
-  };
-  function printLine(promptText, outText, cls){
-    const row = document.createElement('div');
-    row.className = 'tline';
-    row.innerHTML = '<span class="prompt">'+promptText+'</span><span class="out'+(cls?' '+cls:'')+'"></span>';
-    row.querySelector('.out').textContent = outText;
-    consoleLog.appendChild(row);
-    consoleLog.scrollTop = consoleLog.scrollHeight;
-  }
-  consoleInput.addEventListener('keydown', (e)=>{
-    if(e.key !== 'Enter') return;
-    const raw = consoleInput.value.trim();
-    if(!raw) return;
-    printLine('$ ', raw);
-    const cmd = raw.toLowerCase();
-    if(cmd === 'clear'){
-      consoleLog.innerHTML = '';
-    } else if(commands[cmd]){
-      printLine('', commands[cmd], 'ok');
-      if(cmd === 'sudo hire-me'){
-        setTimeout(()=>{ window.location.href = 'mailto:pratikbhor2004@gmail.com'; }, 900);
-      }
-    } else {
-      printLine('', 'command not found: '+raw+' — type help', 'err');
-    }
-    consoleInput.value = '';
+  // ---------- stat count-up ----------
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const end = Number(el.dataset.count);
+    const suffix = el.querySelector('em') ? el.querySelector('em').outerHTML : '';
+    if(reduceMotion){ el.innerHTML = end + suffix; return; }
+    new IntersectionObserver((entries, o)=>{
+      if(!entries[0].isIntersecting) return;
+      o.disconnect();
+      const t0 = performance.now();
+      const step = (now)=>{
+        const k = Math.min(1, (now - t0) / 1100);
+        el.innerHTML = Math.round(end * (1 - Math.pow(1 - k, 3))) + suffix;
+        if(k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, {threshold:0.6}).observe(el);
   });
+
+  // ---------- 3D tilt cards ----------
+  if(finePointer && !reduceMotion){
+    document.querySelectorAll('.tilt').forEach(card=>{
+      const max = card.classList.contains('proj-card') || card.classList.contains('exp-card') ? 3 : 7;
+      card.addEventListener('pointermove', e=>{
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        card.style.transform = `perspective(1000px) rotateX(${((0.5 - py) * max).toFixed(2)}deg) rotateY(${((px - 0.5) * max).toFixed(2)}deg) translateY(-3px)`;
+        card.style.setProperty('--mx', (px * 100) + '%');
+        card.style.setProperty('--my', (py * 100) + '%');
+      });
+      card.addEventListener('pointerleave', ()=>{ card.style.transform = ''; });
+    });
+  }
+
+  // ---------- resume PDF ----------
+  document.querySelectorAll('[data-print]').forEach(b=>b.addEventListener('click', ()=>window.print()));
+
+  // ---------- 3D stack scene ----------
+  (function initScene(){
+    const host = document.getElementById('scene3d');
+    if(!host || !window.THREE) return;
+    let renderer;
+    try{
+      renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+    }catch(err){
+      return;
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    host.insertBefore(renderer.domElement, host.firstChild);
+    host.classList.add('ready');
+
+    const TEAL = 0x5EEAD4, TEAL_DIM = 0x2E8B7C, AMBER = 0xF0B429, CORAL = 0xF0785A;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(0, 0.4, 10);
+    const world = new THREE.Group();
+    scene.add(world);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+    const keyLight = new THREE.PointLight(TEAL, 1.4, 40);
+    keyLight.position.set(5, 6, 8);
+    scene.add(keyLight);
+    const rimLight = new THREE.PointLight(AMBER, 0.9, 40);
+    rimLight.position.set(-6, -4, -5);
+    scene.add(rimLight);
+
+    // core: the Spring Boot service everything talks to
+    const core = new THREE.Group();
+    core.add(new THREE.Mesh(
+      new THREE.IcosahedronGeometry(1, 1),
+      new THREE.MeshStandardMaterial({color:0x111821, emissive:TEAL_DIM, emissiveIntensity:0.3, metalness:0.5, roughness:0.4, flatShading:true})
+    ));
+    core.add(new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.01, 1)),
+      new THREE.LineBasicMaterial({color:TEAL, transparent:true, opacity:0.8})
+    ));
+    world.add(core);
+
+    const orbit = new THREE.Mesh(
+      new THREE.TorusGeometry(1.65, 0.012, 6, 160),
+      new THREE.MeshBasicMaterial({color:TEAL_DIM})
+    );
+    orbit.rotation.x = Math.PI / 2;
+    world.add(orbit);
+
+    const nodeDefs = [
+      {label:'React',        pos:[-3.1,  1.2,  0.8], geo:new THREE.BoxGeometry(0.6, 0.6, 0.6),            color:TEAL},
+      {label:'JWT · OAuth2', pos:[-2.5, -1.6,  1.2], geo:new THREE.OctahedronGeometry(0.42),              color:AMBER},
+      {label:'MySQL',        pos:[ 3.0, -1.0,  0.6], geo:new THREE.CylinderGeometry(0.36, 0.36, 0.66, 32), color:TEAL},
+      {label:'Gemini API',   pos:[ 2.6,  1.5, -0.6], geo:new THREE.DodecahedronGeometry(0.42),            color:CORAL},
+      {label:'Docker',       pos:[ 0.7, -2.2, -1.4], geo:new THREE.BoxGeometry(0.7, 0.4, 0.4),            color:TEAL},
+      {label:'AWS',          pos:[-0.7,  2.3, -1.4], geo:new THREE.TorusKnotGeometry(0.22, 0.07, 80, 10), color:AMBER}
+    ];
+
+    function makeLabel(text, cls){
+      const el = document.createElement('div');
+      el.className = 'scene-label' + (cls ? ' ' + cls : '');
+      el.textContent = text;
+      host.appendChild(el);
+      return el;
+    }
+
+    const nodes = nodeDefs.map((d, i)=>{
+      const group = new THREE.Group();
+      group.position.set(...d.pos);
+      group.add(new THREE.Mesh(d.geo, new THREE.MeshStandardMaterial({
+        color:0x151A24, emissive:d.color, emissiveIntensity:0.2, metalness:0.4, roughness:0.45, flatShading:true
+      })));
+      group.add(new THREE.LineSegments(new THREE.EdgesGeometry(d.geo, 20), new THREE.LineBasicMaterial({color:d.color})));
+      world.add(group);
+
+      // link to the core, plus a request packet travelling along it
+      const line = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), group.position.clone()]),
+        new THREE.LineBasicMaterial({color:TEAL_DIM, transparent:true, opacity:0.5})
+      );
+      world.add(line);
+      const packet = new THREE.Mesh(new THREE.SphereGeometry(0.065, 12, 12), new THREE.MeshBasicMaterial({color:d.color}));
+      world.add(packet);
+
+      return {group, line, packet, label:makeLabel(d.label), base:new THREE.Vector3(...d.pos), phase:i * 0.9, speed:0.35 + (i % 3) * 0.08};
+    });
+    const coreLabel = makeLabel('Spring Boot API', 'core');
+
+    // starfield
+    const starCount = 260;
+    const starPos = new Float32Array(starCount * 3);
+    for(let i = 0; i < starCount; i++){
+      const r = 5 + Math.random() * 5;
+      const th = Math.random() * Math.PI * 2;
+      const ph = Math.acos(2 * Math.random() - 1);
+      starPos[i*3]     = r * Math.sin(ph) * Math.cos(th);
+      starPos[i*3 + 1] = r * Math.sin(ph) * Math.sin(th);
+      starPos[i*3 + 2] = r * Math.cos(ph);
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    world.add(new THREE.Points(starGeo, new THREE.PointsMaterial({color:TEAL_DIM, size:0.035, transparent:true, opacity:0.8})));
+
+    // drag to rotate
+    let targetY = 0.3, targetX = 0.18, dragging = false, lastX = 0, lastY = 0;
+    world.rotation.set(targetX, targetY, 0);
+    host.addEventListener('pointerdown', e=>{
+      dragging = true; lastX = e.clientX; lastY = e.clientY;
+      host.setPointerCapture(e.pointerId);
+      host.classList.add('grabbing');
+    });
+    host.addEventListener('pointermove', e=>{
+      if(!dragging) return;
+      targetY += (e.clientX - lastX) * 0.008;
+      targetX = Math.max(-0.6, Math.min(0.8, targetX + (e.clientY - lastY) * 0.005));
+      lastX = e.clientX; lastY = e.clientY;
+    });
+    const endDrag = ()=>{ dragging = false; host.classList.remove('grabbing'); };
+    host.addEventListener('pointerup', endDrag);
+    host.addEventListener('pointercancel', endDrag);
+
+    let w = 1, h = 1;
+    function resize(){
+      w = host.clientWidth; h = host.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.position.z = w < 420 ? 13 : 11.2;
+      camera.updateProjectionMatrix();
+    }
+    new ResizeObserver(resize).observe(host);
+    resize();
+
+    const v = new THREE.Vector3();
+    function placeLabel(el, obj, offsetY){
+      obj.getWorldPosition(v);
+      // fade labels on the far side of the model
+      el.style.opacity = Math.max(0.25, Math.min(1, 0.6 + v.z / 5)).toFixed(2);
+      v.project(camera);
+      const x = (v.x * 0.5 + 0.5) * w;
+      const y = (-v.y * 0.5 + 0.5) * h - offsetY;
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%)`;
+    }
+
+    const clock = new THREE.Clock();
+    function frame(){
+      const t = reduceMotion ? 0 : clock.getElapsedTime();
+      if(!dragging && !reduceMotion) targetY += 0.0025;
+      world.rotation.y += (targetY - world.rotation.y) * 0.08;
+      world.rotation.x += (targetX - world.rotation.x) * 0.08;
+      core.rotation.set(t * 0.12, t * 0.25, 0);
+
+      nodes.forEach(n=>{
+        n.group.position.set(n.base.x, n.base.y + Math.sin(t * 1.1 + n.phase) * 0.12, n.base.z);
+        n.group.rotation.set(t * 0.3, t * 0.5 + n.phase, 0);
+        const attr = n.line.geometry.attributes.position;
+        attr.setXYZ(1, n.group.position.x, n.group.position.y, n.group.position.z);
+        attr.needsUpdate = true;
+        // ping-pong: request out to the service, response back
+        const k = reduceMotion ? 0.6 : Math.sin(t * n.speed * 2 + n.phase) * 0.5 + 0.5;
+        n.packet.position.copy(n.group.position).multiplyScalar(0.3 + k * 0.7);
+      });
+
+      renderer.render(scene, camera);
+      nodes.forEach(n=>placeLabel(n.label, n.group, 24));
+      placeLabel(coreLabel, core, -10);
+    }
+
+    // only animate while on screen
+    let visible = false, rafId = 0;
+    function loop(){
+      frame();
+      rafId = visible ? requestAnimationFrame(loop) : 0;
+    }
+    new IntersectionObserver(entries=>{
+      visible = entries[0].isIntersecting;
+      if(visible && !rafId) rafId = requestAnimationFrame(loop);
+    }).observe(host);
+  })();
+
+  // ---------- AI assistant ----------
+  const chat = document.getElementById('chat');
+  const chatLog = document.getElementById('chatLog');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatLauncher = document.getElementById('chatLauncher');
+  const chatSuggest = document.getElementById('chatSuggest');
+  const history = [];
+
+  // offline answers, used when CHAT_ENDPOINT is empty or unreachable
+  const KB = [
+    {k:['hi','hello','hey','namaste'], a:"Hi! I'm Pratik's AI assistant. Ask me about his skills, projects, experience, education or how to reach him."},
+    {k:['open to work','available','hiring','hire','job','role','looking','notice','join'], a:"Yes, Pratik is open to full-time backend and full-stack developer roles. He graduated in Computer Engineering from SPPU in 2026 and is based in Pune, India. Email pratikbhor2004@gmail.com to start a conversation."},
+    {k:['contact','email','phone','reach','linkedin','call'], a:"Email: pratikbhor2004@gmail.com\nPhone: +91 8010576707\nLinkedIn: linkedin.com/in/pratik-bhor-9a1a27259\nGitHub: github.com/Pratikbhor2004"},
+    {k:['best project','featured','resume analyzer','analyser','gemini','ats'], a:"His flagship project is Resume Analyzer AI Pro (Jul 2026), live at resume-analyser-kp0f.onrender.com. It's a React + Spring Boot + MySQL app that uses the Google Gemini API to score a resume's ATS compatibility against a job description, detect missing skills, generate interview questions and suggest a learning roadmap. PDFs are parsed with Apache PDFBox, and auth uses Spring Security, JWT, Google OAuth2 and Brevo email verification."},
+    {k:['airline','swing','desktop'], a:"The Airline Management System (Jan 2025) is a Java Swing desktop app for flight bookings, passenger records, reservations and cancellations, connected to MySQL via JDBC. Source: github.com/Pratikbhor2004/Airline-Management-System"},
+    {k:['tikone','website','client','freelance'], a:"Tikone Global (Sept 2025) is a responsive business website Pratik built for a client in HTML, CSS and JavaScript, with WhatsApp chat integration. It's live at tikoneglobal.com."},
+    {k:['project'], a:"Pratik has shipped 3 projects:\n• Resume Analyzer AI Pro: Spring Boot + React + Gemini API (live)\n• Airline Management System: Java Swing + JDBC + MySQL\n• Tikone Global: a client business website (live)\nAsk about any one for details."},
+    {k:['intern','experience','edunet','microsoft','sap','face','opencv','work'], a:"Pratik was an Artificial Intelligence Intern at Edunet Foundation (a Microsoft & SAP CSR initiative), Nov–Dec 2024, remote. He built a real-time Face Recognition Attendance System with Python, OpenCV, dlib and Tkinter, with timestamped audit logs stored via Pandas and Firebase."},
+    {k:['strongest','best at','strength','speciali','focus','good at'], a:"His core strength is backend development in Java and Spring Boot: designing REST APIs, securing them with Spring Security, JWT and OAuth2, and persisting data in MySQL. He also integrates AI (Gemini API) into real products and can build the React frontend himself."},
+    {k:['skill','stack','tech','language','know','java','spring','react','sql','aws','docker'], a:"Backend: Java, Spring Boot, REST APIs, Hibernate, JDBC, Python\nSecurity: Spring Security, JWT, Google OAuth2\nData: MySQL, SQL, Firebase\nAI: Gemini API, OpenCV\nFrontend: React, JavaScript, HTML, CSS\nCloud & tools: AWS, Docker, Git, Linux"},
+    {k:['education','college','degree','cgpa','university','sppu','study','graduat'], a:"B.E. in Computer Engineering, Savitribai Phule Pune University (2022–2026), CGPA 8.32/10. HSC 68.17%, SSC 84.80%, both from Bharat Highschool and Junior College."},
+    {k:['leetcode','dsa','hackerrank','achievement','certif','problem'], a:"Pratik has solved 200+ DSA problems on LeetCode and holds a 2-star SQL rating on HackerRank."},
+    {k:['location','where','based','relocat','remote'], a:"Pratik is based in Pune, India. For questions about relocation or remote work, please ask him directly at pratikbhor2004@gmail.com."},
+    {k:['resume','cv','pdf'], a:"Use the \"resume.pdf\" button at the top of the page, which opens a print-ready version you can save as a PDF."}
+  ];
+  function localAnswer(q){
+    const s = q.toLowerCase();
+    let best = null, bestScore = 0;
+    KB.forEach(item=>{
+      const score = item.k.reduce((acc, kw)=>acc + (s.includes(kw) ? kw.length : 0), 0);
+      if(score > bestScore){ best = item; bestScore = score; }
+    });
+    return best ? best.a : "I don't have that detail. I can talk about Pratik's skills, projects, internship, education or contact info. For anything else, email him at pratikbhor2004@gmail.com.";
+  }
+
+  function addMsg(role, text){
+    const el = document.createElement('div');
+    el.className = 'msg ' + role;
+    el.textContent = text;
+    chatLog.appendChild(el);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return el;
+  }
+  function showTyping(){
+    const el = document.createElement('div');
+    el.className = 'msg bot typing';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    chatLog.appendChild(el);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return el;
+  }
+
+  async function ask(question){
+    question = question.trim();
+    if(!question) return;
+    chatSuggest.style.display = 'none';
+    addMsg('user', question);
+    history.push({role:'user', content:question});
+    chatInput.value = '';
+    chatSend.disabled = true;
+    const typing = showTyping();
+    let answer;
+    if(CHAT_ENDPOINT){
+      try{
+        const res = await fetch(CHAT_ENDPOINT, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({messages:history.slice(-10)})
+        });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        answer = (await res.json()).reply;
+      }catch(err){
+        answer = null;
+      }
+    }
+    if(!answer){
+      await new Promise(r=>setTimeout(r, 450));
+      answer = localAnswer(question);
+    }
+    typing.remove();
+    addMsg('bot', answer);
+    history.push({role:'assistant', content:answer});
+    chatSend.disabled = false;
+    chatInput.focus();
+  }
+
+  function openChat(){
+    chat.classList.add('open');
+    chat.setAttribute('aria-hidden', 'false');
+    chatLauncher.classList.add('hidden');
+    if(!chatLog.children.length){
+      addMsg('bot', "Hi 👋 I'm Pratik's AI assistant. Ask me anything about his skills, projects or experience.");
+    }
+    setTimeout(()=>chatInput.focus(), 150);
+  }
+  function closeChat(){
+    chat.classList.remove('open');
+    chat.setAttribute('aria-hidden', 'true');
+    chatLauncher.classList.remove('hidden');
+  }
+  document.querySelectorAll('[data-open-chat]').forEach(b=>b.addEventListener('click', e=>{ e.preventDefault(); openChat(); }));
+  document.getElementById('chatClose').addEventListener('click', closeChat);
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && chat.classList.contains('open')) closeChat(); });
+  // clicking anywhere outside the panel closes it too
+  document.addEventListener('click', e=>{
+    if(chat.classList.contains('open') && !chat.contains(e.target) && !e.target.closest('[data-open-chat]')) closeChat();
+  });
+  chatForm.addEventListener('submit', e=>{ e.preventDefault(); if(!chatSend.disabled) ask(chatInput.value); });
+  chatSuggest.querySelectorAll('button').forEach(b=>b.addEventListener('click', ()=>ask(b.textContent)));
 </script>
 
 </body>

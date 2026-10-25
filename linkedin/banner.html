@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LinkedIn Banner</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  /* LinkedIn cover: 1584×396. The profile photo overlaps the bottom-left, so content sits right of x≈560. */
+  :root{
+    --bg:#0B0E14;--panel:#10141C;--border:#212836;--border-soft:#1A2029;
+    --text:#E7EAF2;--text-dim:#98A2B8;--text-faint:#5C6579;
+    --teal:#5EEAD4;--teal-dim:#2E8B7C;--amber:#F0B429;--coral:#F0785A;
+    --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1584px;height:396px;overflow:hidden;background:var(--bg);}
+  .banner{position:relative;width:1584px;height:396px;overflow:hidden;font-family:var(--sans);color:var(--text);
+    background:radial-gradient(ellipse 50% 90% at 78% 40%, rgba(94,234,212,0.10), transparent 70%), var(--bg);}
+  .grid{position:absolute;inset:0;
+    background-image:linear-gradient(var(--border-soft) 1px, transparent 1px),linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:44px 44px;opacity:.55;
+    mask-image:linear-gradient(90deg, transparent 0%, #000 35%, #000 100%);}
+  svg.net{position:absolute;left:120px;top:6px;width:470px;height:384px;}
+  .content{position:absolute;left:640px;top:60px;right:56px;}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:15px;color:var(--text-dim);
+    border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:6px 16px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(94,234,212,0.15);}
+  h1{font-size:42px;white-space:nowrap;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-top:20px;}
+  h1 span{color:var(--teal);}
+  .sub{font-family:var(--mono);font-size:19px;color:var(--text-dim);margin-top:12px;}
+  .sub b{color:var(--amber);font-weight:600;}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:14px;padding:5px 11px;border-radius:6px;background:var(--panel);border:1px solid var(--border);color:var(--text-dim);}
+  .chip.k{color:var(--teal);border-color:var(--teal-dim);}
+  .links{position:absolute;right:64px;bottom:26px;font-family:var(--mono);font-size:14px;color:var(--text-faint);display:flex;gap:28px;}
+  .links b{color:var(--text-dim);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="grid"></div>
+
+  <!-- stack network motif: Spring Boot core with linked services -->
+  <svg class="net" viewBox="0 0 520 396" fill="none">
+    <g stroke="#2E8B7C" stroke-width="1.5" opacity=".7">
+      <line x1="260" y1="190" x2="110" y2="110"/><line x1="260" y1="190" x2="130" y2="300"/>
+      <line x1="260" y1="190" x2="420" y2="90"/><line x1="260" y1="190" x2="440" y2="280"/>
+      <line x1="260" y1="190" x2="270" y2="40"/><line x1="260" y1="190" x2="290" y2="350"/>
+    </g>
+    <ellipse cx="260" cy="190" rx="92" ry="26" stroke="#2E8B7C" stroke-width="1.2" opacity=".6"/>
+    <!-- core icosahedron outline -->
+    <g stroke="#5EEAD4" stroke-width="1.6" fill="#111821">
+      <polygon points="260,138 305,164 305,216 260,242 215,216 215,164"/>
+    </g>
+    <g stroke="#5EEAD4" stroke-width="1.1" opacity=".75">
+      <line x1="260" y1="138" x2="260" y2="190"/><line x1="305" y1="164" x2="260" y2="190"/><line x1="305" y1="216" x2="260" y2="190"/>
+      <line x1="260" y1="242" x2="260" y2="190"/><line x1="215" y1="216" x2="260" y2="190"/><line x1="215" y1="164" x2="260" y2="190"/>
+      <line x1="215" y1="164" x2="305" y2="216"/><line x1="305" y1="164" x2="215" y2="216"/>
+    </g>
+    <!-- nodes -->
+    <rect x="96" y="96" width="28" height="28" rx="3" stroke="#5EEAD4" stroke-width="1.6" fill="#151A24"/>
+    <polygon points="130,284 146,300 130,316 114,300" stroke="#F0B429" stroke-width="1.6" fill="#151A24"/>
+    <circle cx="420" cy="90" r="15" stroke="#F0785A" stroke-width="1.6" fill="#151A24"/>
+    <g stroke="#5EEAD4" stroke-width="1.6" fill="#151A24"><ellipse cx="440" cy="268" rx="15" ry="5"/><path d="M425 268v24c0 3 7 5 15 5s15-2 15-5v-24"/></g>
+    <polygon points="270,28 284,52 256,52" stroke="#F0B429" stroke-width="1.6" fill="#151A24"/>
+    <rect x="276" y="340" width="30" height="18" rx="2" stroke="#5EEAD4" stroke-width="1.6" fill="#151A24"/>
+    <!-- packets -->
+    <circle cx="185" cy="150" r="4" fill="#5EEAD4"/><circle cx="350" cy="134" r="4" fill="#F0785A"/>
+    <circle cx="200" cy="240" r="4" fill="#F0B429"/><circle cx="360" cy="240" r="4" fill="#5EEAD4"/>
+    <g font-family="JetBrains Mono, monospace" font-size="12" fill="#98A2B8">
+      <text x="110" y="86" text-anchor="middle">React</text>
+      <text x="130" y="336" text-anchor="middle">JWT · OAuth2</text>
+      <text x="420" y="64" text-anchor="middle">Gemini API</text>
+      <text x="440" y="316" text-anchor="middle">MySQL</text>
+      <text x="291" y="378" text-anchor="middle">Docker</text>
+      <text x="270" y="16" text-anchor="middle">AWS</text>
+      <text x="260" y="268" text-anchor="middle" fill="#5EEAD4" font-weight="600">Spring Boot</text>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="kicker"><span class="dot"></span> open to backend &amp; full-stack roles</div>
+    <h1>Backend Developer <span>·</span> Java &amp; Spring Boot</h1>
+    <div class="sub">I build <b>secure, production-ready</b> REST APIs, from auth to AI integration.</div>
+    <div class="chips">
+      <span class="chip k">Spring Boot</span><span class="chip k">REST APIs</span><span class="chip k">Spring Security</span>
+      <span class="chip">JWT · OAuth2</span><span class="chip">MySQL</span><span class="chip">React</span><span class="chip">Gemini API</span><span class="chip">Docker · AWS</span>
+    </div>
+  </div>
+  <div class="links"><span>github.com/<b>Pratikbhor2004</b></span><span><b>pratikbhor2004@gmail.com</b></span></div>
+</div>
+</body>
+</html>

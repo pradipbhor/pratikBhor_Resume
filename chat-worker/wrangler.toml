@@ -1,0 +1,8 @@
+name = "pratik-portfolio-chat"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Set this to the exact URL your portfolio is served from before going live.
+ALLOWED_ORIGIN = "*"
+OPENAI_MODEL = "gpt-4o-mini"
