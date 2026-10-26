@@ -308,6 +308,70 @@
   .proj-link{font-family:var(--mono);font-size:12px;color:var(--teal);display:flex;align-items:center;gap:6px;}
   .proj-link:hover{text-decoration:underline;}
 
+  /* ---------- LeetCode ---------- */
+  .lc{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .lc-body{padding:30px 30px 26px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:40px;align-items:center;}
+  .lc-ring{position:relative;width:200px;height:200px;margin:0 auto;}
+  .lc-ring svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 0 18px rgba(94,234,212,0.12));}
+  .lc-ring circle{fill:none;stroke-width:12;}
+  .lc-ring .track{stroke:var(--panel-2);}
+  .lc-ring .arc{stroke:currentColor;transition:stroke-dasharray 1.4s cubic-bezier(.2,.8,.2,1);}
+  .lc-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .lc-ring-center .n{font-family:var(--mono);font-size:42px;font-weight:700;line-height:1;color:var(--text);}
+  .lc-ring-center .l{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-top:8px;}
+  .lc-bars{display:flex;flex-direction:column;gap:18px;}
+  .lc-bar-head{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12.5px;margin-bottom:8px;}
+  .lc-bar-head .d{font-weight:600;}
+  .lc-bar-head .c{color:var(--text-faint);}
+  .lc-bar-head .c b{color:var(--text);font-weight:600;font-size:15px;}
+  .lc-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;}
+  .lc-fill{height:100%;width:0;border-radius:99px;background:currentColor;transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+  .lc .easy{color:var(--teal);}
+  .lc .medium{color:var(--amber);}
+  .lc .hard{color:var(--coral);}
+  .lc-mini{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border-soft);}
+  .lc-mini > div{padding:18px 22px;border-right:1px solid var(--border-soft);}
+  .lc-mini > div:last-child{border-right:none;}
+  .lc-mini .v{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .lc-mini .v i{font-size:20px;}
+  .lc-mini .k{font-size:12px;color:var(--text-faint);margin-top:4px;}
+  .lc-row{padding:22px 30px;border-top:1px solid var(--border-soft);}
+  .lc-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--border-soft);}
+  .lc-split .lc-row{border-top:none;}
+  .lc-split .lc-row + .lc-row{border-left:1px solid var(--border-soft);}
+  .lc-label{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .lc-badges{display:flex;gap:16px;flex-wrap:wrap;}
+  .lc-badge{display:flex;flex-direction:column;align-items:center;gap:8px;width:84px;text-align:center;perspective:500px;}
+  .medal{
+    width:62px;height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    background:linear-gradient(150deg,var(--c1),var(--c2));color:#0B0E14;
+    font-family:var(--mono);font-weight:700;font-size:18px;line-height:1;
+    transition:transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .medal small{font-size:8.5px;font-weight:600;margin-top:3px;letter-spacing:.04em;text-transform:uppercase;}
+  .medal i{font-size:24px;}
+  .lc-badge:hover .medal{transform:rotateY(360deg);}
+  .lc-badge .bl{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);line-height:1.35;}
+  .lc-topics .chip b{color:var(--teal);font-weight:600;margin-left:4px;}
+  .lc-heat{overflow-x:auto;padding-bottom:6px;}
+  .lc-months{position:relative;height:16px;font-family:var(--mono);font-size:10px;color:var(--text-faint);}
+  .lc-months span{position:absolute;top:0;}
+  .lc-heat-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,11px);grid-auto-columns:11px;gap:3px;width:max-content;}
+  .lc-heat-grid i{border-radius:2px;background:var(--panel-2);outline:1px solid rgba(255,255,255,0.02);}
+  .lc-heat-grid i.l1{background:rgba(94,234,212,0.22);}
+  .lc-heat-grid i.l2{background:rgba(94,234,212,0.45);}
+  .lc-heat-grid i.l3{background:rgba(94,234,212,0.72);}
+  .lc-heat-grid i.l4{background:var(--teal);}
+  .lc-legend{display:flex;align-items:center;gap:4px;}
+  .lc-legend i{width:10px;height:10px;border-radius:2px;display:inline-block;background:var(--panel-2);}
+  .lc-legend i.l1{background:rgba(94,234,212,0.22);}
+  .lc-legend i.l2{background:rgba(94,234,212,0.45);}
+  .lc-legend i.l3{background:rgba(94,234,212,0.72);}
+  .lc-legend i.l4{background:var(--teal);}
+  .lc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 30px;border-top:1px solid var(--border-soft);background:var(--panel-2);}
+  .lc-foot .note{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+
   /* ---------- Education ---------- */
   .edu-list{display:flex;flex-direction:column;}
   .edu-item{
@@ -336,6 +400,7 @@
     transition:border-color .15s ease,transform .15s ease;
   }
   .contact-card:hover{border-color:var(--teal-dim);transform:translateY(-1px);}
+  .contact-card:last-child:nth-child(odd){grid-column:1 / -1;}
   .contact-card i{font-size:19px;color:var(--teal);}
   .contact-card .cl{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
   .contact-card .cv{font-size:14px;color:var(--text);margin-top:2px;word-break:break-word;}
@@ -427,6 +492,9 @@
     .hero-grid,.about-grid{grid-template-columns:1fr;gap:32px;}
     .exp-meta{text-align:left;}
     .contact-grid{grid-template-columns:1fr;}
+    .lc-body{grid-template-columns:1fr;gap:28px;}
+    .lc-split{grid-template-columns:1fr;}
+    .lc-split .lc-row + .lc-row{border-left:none;border-top:1px solid var(--border-soft);}
   }
   @media (max-width:640px){
     .hero-name{font-size:38px;}
@@ -439,11 +507,16 @@
     .chat-launcher .lbl{display:none;}
     .chat-launcher{padding:14px;}
     .avatar{width:72px;height:72px;}
+    .lc-mini{grid-template-columns:repeat(2,1fr);}
+    .lc-mini > div:nth-child(2){border-right:none;}
+    .lc-mini > div:nth-child(-n+2){border-bottom:1px solid var(--border-soft);}
+    .lc-row,.lc-body{padding-left:20px;padding-right:20px;}
   }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .cursor,.dot,.proj-status .pdot{animation:none;}
+    .lc-ring .arc,.lc-fill,.medal{transition:none;}
   }
 
   /* ---------- Print: clean resume via Save as PDF ---------- */
@@ -480,6 +553,7 @@
   <a href="#skills">skills</a>
   <a href="#experience">experience</a>
   <a href="#projects">projects</a>
+  <a href="#leetcode">leetcode</a>
   <a href="#education">education</a>
   <a href="#contact">contact</a>
 </div>
@@ -493,8 +567,9 @@
     <a href="#skills"><span class="idx">03</span> skills</a>
     <a href="#experience"><span class="idx">04</span> experience</a>
     <a href="#projects"><span class="idx">05</span> projects</a>
-    <a href="#education"><span class="idx">06</span> education</a>
-    <a href="#contact"><span class="idx">07</span> contact</a>
+    <a href="#leetcode"><span class="idx">06</span> leetcode</a>
+    <a href="#education"><span class="idx">07</span> education</a>
+    <a href="#contact"><span class="idx">08</span> contact</a>
   </nav>
   <div class="status"><span class="dot"></span> open to work</div>
 </aside>
@@ -541,7 +616,7 @@
       <div class="about-grid">
         <div class="about-text">
           <p>I'm a <b>Computer Engineering graduate</b> (SPPU, 2026, CGPA 8.32) who enjoys the part of software users never see: <b>APIs, authentication, data models</b>, and the plumbing that makes AI features usable in real products.</p>
-          <p>I built and deployed <b>Resume Analyzer AI Pro</b>, a full-stack app on Spring Boot, React, MySQL and the Gemini API. During my <b>AI internship</b> (Edunet Foundation, a Microsoft &amp; SAP initiative) I built a real-time face-recognition attendance system. I keep my fundamentals sharp with <b>200+ LeetCode problems</b>.</p>
+          <p>I built and deployed <b>Resume Analyzer AI Pro</b>, a full-stack app on Spring Boot, React, MySQL and the Gemini API. During my <b>AI internship</b> (Edunet Foundation, a Microsoft &amp; SAP initiative) I built a real-time face-recognition attendance system. I keep my fundamentals sharp with <b>270+ LeetCode problems</b> and a <b>274-day solving streak</b>.</p>
           <div class="strengths">
             <div class="strength"><i class="ti ti-shield-lock"></i><div><b>Secure by default:</b> Spring Security, JWT, Google OAuth2, email verification &amp; password-reset flows.</div></div>
             <div class="strength"><i class="ti ti-api"></i><div><b>API-first:</b> RESTful Spring Boot services backed by MySQL, with Hibernate &amp; JDBC.</div></div>
@@ -570,7 +645,7 @@
       </div>
 
       <div class="stats">
-        <div class="stat tilt"><div class="num" data-count="200">0<em>+</em></div><div class="lbl">DSA problems solved</div></div>
+        <div class="stat tilt"><div class="num" data-count="270">0<em>+</em></div><div class="lbl">LeetCode problems solved</div></div>
         <div class="stat tilt"><div class="num">8.32</div><div class="lbl">CGPA, B.E. Computer Eng.</div></div>
         <div class="stat tilt"><div class="num" data-count="3">0</div><div class="lbl">shipped projects</div></div>
         <div class="stat tilt"><div class="num" data-count="2">0</div><div class="lbl">live in production</div></div>
@@ -740,9 +815,83 @@
     </div>
   </section>
 
+  <section id="leetcode">
+    <div class="container">
+      <div class="eyebrow">06 / leetcode.stats</div>
+      <h2 class="title">// problem solving</h2>
+      <div class="lc" id="lcCard">
+        <div class="tbar">
+          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+          <span class="tpath">leetcode.com/u/<span id="lcUser">pratikbhor2004</span></span>
+          <span class="tright"><span class="dot"></span> <span id="lcSync">snapshot</span></span>
+        </div>
+
+        <div class="lc-body">
+          <div class="lc-ring">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="track" cx="100" cy="100" r="84"/>
+              <circle class="arc easy" cx="100" cy="100" r="84" id="lcArcEasy"/>
+              <circle class="arc medium" cx="100" cy="100" r="84" id="lcArcMedium"/>
+              <circle class="arc hard" cx="100" cy="100" r="84" id="lcArcHard"/>
+            </svg>
+            <div class="lc-ring-center"><div class="n" id="lcSolved">0</div><div class="l">problems solved</div></div>
+          </div>
+          <div class="lc-bars">
+            <div class="easy">
+              <div class="lc-bar-head"><span class="d">Easy</span><span class="c"><b id="lcEasy">0</b> / <span id="lcEasyTotal">–</span></span></div>
+              <div class="lc-track"><div class="lc-fill" id="lcEasyFill"></div></div>
+            </div>
+            <div class="medium">
+              <div class="lc-bar-head"><span class="d">Medium</span><span class="c"><b id="lcMedium">0</b> / <span id="lcMediumTotal">–</span></span></div>
+              <div class="lc-track"><div class="lc-fill" id="lcMediumFill"></div></div>
+            </div>
+            <div class="hard">
+              <div class="lc-bar-head"><span class="d">Hard</span><span class="c"><b id="lcHard">0</b> / <span id="lcHardTotal">–</span></span></div>
+              <div class="lc-track"><div class="lc-fill" id="lcHardFill"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lc-mini">
+          <div><div class="v"><i class="ti ti-flame" style="color:var(--coral);"></i><span id="lcStreak">0</span></div><div class="k">day longest streak</div></div>
+          <div><div class="v"><i class="ti ti-calendar-check" style="color:var(--teal);"></i><span id="lcActive">0</span></div><div class="k">active days</div></div>
+          <div><div class="v"><i class="ti ti-coffee" style="color:var(--amber);"></i><span id="lcLang1">0</span></div><div class="k" id="lcLang1Name">solved in Java</div></div>
+          <div><div class="v"><i class="ti ti-database" style="color:var(--teal);"></i><span id="lcLang2">0</span></div><div class="k" id="lcLang2Name">solved in MySQL</div></div>
+        </div>
+
+        <div class="lc-row">
+          <div class="lc-label"><span>submission activity</span><span id="lcHeatSummary"></span></div>
+          <div class="lc-heat">
+            <div class="lc-months" id="lcMonths"></div>
+            <div class="lc-heat-grid" id="lcHeat" role="img" aria-label="LeetCode submission calendar for the past year"></div>
+          </div>
+          <div class="lc-label" style="margin:10px 0 0;justify-content:flex-end;">
+            <span class="lc-legend">less <i></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> more</span>
+          </div>
+        </div>
+
+        <div class="lc-split">
+          <div class="lc-row">
+            <div class="lc-label"><span>badges earned</span></div>
+            <div class="lc-badges" id="lcBadges"></div>
+          </div>
+          <div class="lc-row">
+            <div class="lc-label"><span>most-solved topics</span></div>
+            <div class="chips lc-topics" id="lcTopics"></div>
+          </div>
+        </div>
+
+        <div class="lc-foot">
+          <span class="note" id="lcNote"></span>
+          <a class="btn" href="https://leetcode.com/u/pratikbhor2004/" target="_blank" rel="noopener" id="lcLink"><i class="ti ti-brand-leetcode"></i> view full profile</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="education">
     <div class="container">
-      <div class="eyebrow">06 / academic_record</div>
+      <div class="eyebrow">07 / academic_record</div>
       <h2 class="title">// education</h2>
       <div class="edu-list">
         <div class="edu-item">
@@ -774,7 +923,8 @@
       <div style="margin-top:56px;">
         <div class="eyebrow">certifications &amp; achievements</div>
         <div class="ach-list">
-          <div class="ach-item"><i class="ti ti-brand-leetcode"></i> Solved 200+ Data Structures and Algorithms problems on LeetCode, strengthening problem-solving skills and core DSA concepts.</div>
+          <div class="ach-item"><i class="ti ti-brand-leetcode"></i> Solved 270+ Data Structures and Algorithms problems on LeetCode (177 easy · 90 medium · 6 hard), mostly in Java, with a 274-day longest streak.</div>
+          <div class="ach-item"><i class="ti ti-award"></i> Earned LeetCode's 200 Days Badge 2026 and the Top SQL 50 badge for completing the SQL 50 study plan.</div>
           <div class="ach-item"><i class="ti ti-star"></i> Achieved a 2-star rating in SQL on HackerRank by solving database and query optimization challenges.</div>
         </div>
       </div>
@@ -783,7 +933,7 @@
 
   <section id="contact">
     <div class="container">
-      <div class="eyebrow">07 / connect</div>
+      <div class="eyebrow">08 / connect</div>
       <h2 class="title">// get in touch</h2>
       <p class="sub">I'm looking for backend or full-stack developer roles. Reach out directly, or <a href="#" data-open-chat style="color:var(--teal);">ask my AI assistant</a> anything about my work first.</p>
       <div class="contact-grid">
@@ -798,6 +948,10 @@
         <a class="contact-card" href="https://github.com/Pratikbhor2004" target="_blank" rel="noopener">
           <i class="ti ti-brand-github"></i>
           <div><div class="cl">GitHub</div><div class="cv">github.com/Pratikbhor2004</div></div>
+        </a>
+        <a class="contact-card" href="https://leetcode.com/u/pratikbhor2004/" target="_blank" rel="noopener">
+          <i class="ti ti-brand-leetcode"></i>
+          <div><div class="cl">LeetCode</div><div class="cv">leetcode.com/u/pratikbhor2004</div></div>
         </a>
         <a class="contact-card" href="https://linkedin.com/in/pratik-bhor-9a1a27259" target="_blank" rel="noopener">
           <i class="ti ti-brand-linkedin"></i>
@@ -936,7 +1090,7 @@
   }, 1000);
 
   // ---------- scroll reveal ----------
-  const revealables = document.querySelectorAll('.eyebrow, h2.title, .about-text, .profile-card, .terminal, .stat, .skill-card, .exp-card, .proj-card, .edu-item, .ach-item, .contact-card, #contact .sub, .hero-copy, .scene-card');
+  const revealables = document.querySelectorAll('.eyebrow, h2.title, .about-text, .profile-card, .terminal, .stat, .skill-card, .exp-card, .proj-card, .edu-item, .ach-item, .contact-card, #contact .sub, .hero-copy, .scene-card, .lc');
   revealables.forEach(el=>el.classList.add('reveal'));
   const revealObs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
@@ -1163,6 +1317,150 @@
     }).observe(host);
   })();
 
+
+  // ---------- LeetCode ----------
+  // Snapshot taken 27 Oct 2026; replaced by live numbers from the worker's /leetcode route when CHAT_ENDPOINT is set.
+  const LEETCODE_SNAPSHOT = {"username":"pratikbhor2004","solved":{"all":273,"easy":177,"medium":90,"hard":6},"total":{"all":4095,"easy":974,"medium":2135,"hard":986},"ranking":592995,"streak":274,"activeDays":283,"badges":["200 Days Badge 2026","100 Days Badge 2026","50 Days Badge 2026","Top SQL 50"],"languages":[["Java",211],["MySQL",61],["Bash",1]],"topics":[["Array",108],["Math",77],["Database",61],["String",48],["Two Pointers",36],["Hash Table",35],["Sorting",30],["Binary Search",22]],"calendar":{"1768262400":1,"1768953600":1,"1769385600":4,"1769472000":7,"1769558400":2,"1769644800":3,"1769731200":4,"1769817600":3,"1769904000":6,"1769990400":8,"1770076800":3,"1770163200":5,"1770249600":2,"1770336000":4,"1770422400":5,"1770508800":5,"1770595200":5,"1770681600":6,"1770768000":3,"1770854400":3,"1770940800":7,"1771027200":2,"1771113600":2,"1771200000":4,"1771286400":3,"1771372800":3,"1771459200":4,"1771545600":4,"1771632000":2,"1771718400":4,"1771804800":4,"1771891200":4,"1771977600":2,"1772064000":6,"1772150400":2,"1772236800":2,"1772323200":2,"1772409600":3,"1772496000":3,"1772582400":5,"1772668800":2,"1772755200":2,"1772841600":4,"1772928000":1,"1773014400":1,"1773100800":2,"1773187200":1,"1773273600":1,"1773360000":1,"1773446400":4,"1773532800":1,"1773619200":3,"1773705600":1,"1773792000":2,"1773878400":1,"1773964800":1,"1774051200":3,"1774137600":3,"1774224000":4,"1774310400":1,"1774396800":2,"1774483200":2,"1774569600":3,"1774656000":3,"1774742400":3,"1774828800":2,"1774915200":1,"1775001600":1,"1775088000":2,"1775174400":1,"1775260800":2,"1775347200":1,"1775433600":1,"1775520000":1,"1775606400":2,"1775692800":2,"1775779200":2,"1775865600":1,"1775952000":1,"1776038400":1,"1776124800":1,"1776211200":2,"1776297600":1,"1776384000":3,"1776470400":1,"1776556800":1,"1776643200":2,"1776729600":1,"1776816000":3,"1776902400":1,"1776988800":1,"1777075200":1,"1777161600":5,"1777248000":2,"1777334400":1,"1777420800":1,"1777507200":1,"1777593600":1,"1777680000":2,"1777766400":1,"1777852800":1,"1777939200":1,"1778025600":1,"1778112000":1,"1778198400":1,"1778284800":1,"1778371200":1,"1778457600":1,"1778544000":2,"1778630400":1,"1778716800":1,"1778803200":1,"1778889600":1,"1778976000":1,"1779062400":1,"1779148800":2,"1779235200":1,"1779321600":1,"1779408000":1,"1779494400":1,"1779580800":1,"1779667200":1,"1779753600":1,"1779840000":1,"1779926400":4,"1780012800":1,"1780099200":1,"1780185600":1,"1780272000":1,"1780358400":1,"1780444800":1,"1780531200":1,"1780617600":1,"1780704000":1,"1780790400":1,"1780876800":1,"1780963200":1,"1781049600":1,"1781136000":1,"1781222400":1,"1781308800":1,"1781395200":1,"1781481600":1,"1781568000":1,"1781654400":1,"1781740800":1,"1781827200":1,"1781913600":1,"1782000000":1,"1782086400":1,"1782172800":2,"1782259200":1,"1782345600":1,"1782432000":1,"1782518400":1,"1782604800":1,"1782691200":1,"1782777600":1,"1782864000":1,"1782950400":1,"1783036800":2,"1783123200":1,"1783209600":1,"1783296000":1,"1783382400":1,"1783468800":1,"1783555200":1,"1783641600":1,"1783728000":2,"1783814400":1,"1783900800":1,"1783987200":1,"1784073600":1,"1784160000":1,"1784246400":1,"1784332800":1,"1784419200":1,"1784505600":1,"1784592000":2,"1784678400":1,"1784764800":1,"1784851200":1,"1784937600":1,"1785024000":1,"1785110400":1,"1785196800":1,"1785283200":1,"1785369600":1,"1785456000":1,"1785542400":2,"1785628800":1,"1785715200":1,"1785801600":1,"1785888000":1,"1785974400":1,"1786060800":1,"1786147200":1,"1786233600":1,"1786320000":1,"1786406400":1,"1786492800":1,"1786579200":1,"1786665600":2,"1786752000":1,"1786838400":1,"1786924800":1,"1787011200":1,"1787097600":1,"1787184000":1,"1787270400":1,"1787356800":1,"1787443200":1,"1787529600":1,"1787616000":1,"1787702400":1,"1787788800":1,"1787875200":1,"1787961600":1,"1788048000":3,"1788134400":1,"1788220800":1,"1788307200":1,"1788393600":1,"1788480000":1,"1788566400":1,"1788652800":1,"1788739200":1,"1788825600":1,"1788912000":1,"1788998400":1,"1789084800":1,"1789171200":1,"1789257600":1,"1789344000":1,"1789430400":1,"1789516800":1,"1789603200":1,"1789689600":1,"1789776000":1,"1789862400":1,"1789948800":1,"1790035200":1,"1790121600":1,"1790208000":1,"1790294400":1,"1790380800":1,"1790467200":1,"1790553600":1,"1790640000":1,"1790726400":1,"1790812800":1,"1790899200":1,"1790985600":1,"1791072000":1,"1791158400":1,"1791244800":1,"1791331200":1,"1791417600":1,"1791504000":1,"1791590400":1,"1791676800":1,"1791763200":1,"1791849600":1,"1791936000":1,"1792022400":1,"1792108800":1,"1792195200":1,"1792281600":1,"1792368000":1,"1792454400":1,"1792540800":1,"1792627200":1,"1792713600":1,"1792800000":1,"1792886400":1,"1792972800":1,"1762905600":2,"1762992000":5,"1763078400":1,"1763251200":1,"1763510400":2,"1763596800":3,"1766016000":1}};
+  const LEETCODE_SNAPSHOT_DATE = '27 Oct 2026';
+
+  (function initLeetCode(){
+    const card = document.getElementById('lcCard');
+    if(!card) return;
+    const $ = id => document.getElementById(id);
+    const C = 2 * Math.PI * 84;
+    let data = LEETCODE_SNAPSHOT, shown = false;
+
+    function countUp(el, end){
+      if(reduceMotion){ el.textContent = end.toLocaleString(); return; }
+      const from = Number(el.dataset.v || 0), t0 = performance.now();
+      el.dataset.v = end;
+      const step = now => {
+        const k = Math.min(1, (now - t0) / 1200);
+        el.textContent = Math.round(from + (end - from) * (1 - Math.pow(1 - k, 3))).toLocaleString();
+        if(k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    function badgeHtml(name){
+      const days = name.match(/(\d+)\s*Days Badge\s*(\d{4})?/i);
+      let face, c1, c2;
+      if(days){
+        const n = Number(days[1]);
+        face = `${n}<small>days</small>`;
+        [c1, c2] = n >= 200 ? ['#FCD34D', '#F0B429'] : n >= 100 ? ['#99F6E4', '#5EEAD4'] : ['#C7D2E0', '#98A2B8'];
+      } else if(/sql/i.test(name)){
+        face = '<i class="ti ti-database"></i>'; c1 = '#FDBA9F'; c2 = '#F0785A';
+      } else {
+        face = '<i class="ti ti-award"></i>'; c1 = '#99F6E4'; c2 = '#2E8B7C';
+      }
+      const label = document.createElement('span');
+      label.textContent = name;
+      return `<div class="lc-badge"><div class="medal" style="--c1:${c1};--c2:${c2};">${face}</div><div class="bl">${label.innerHTML}</div></div>`;
+    }
+
+    function buildHeatmap(cal){
+      const grid = $('lcHeat'), months = $('lcMonths');
+      grid.innerHTML = ''; months.innerHTML = '';
+      const byDay = {};
+      Object.entries(cal || {}).forEach(([ts, c])=>{
+        const d = Math.floor(Number(ts) / 86400);
+        byDay[d] = (byDay[d] || 0) + c;
+      });
+      const today = Math.floor(Date.now() / 86400000);
+      // start on the Sunday 52 weeks back (day 0 = Thursday 1 Jan 1970)
+      const startDay = today - 52 * 7 - ((today + 4) % 7);
+      const frag = document.createDocumentFragment();
+      let subs = 0, active = 0;
+      for(let d = startDay; d <= today; d++){
+        const c = byDay[d] || 0;
+        const date = new Date(d * 86400000);
+        const cell = document.createElement('i');
+        if(c) cell.className = 'l' + (c >= 5 ? 4 : c >= 3 ? 3 : c);
+        cell.title = `${c} submission${c === 1 ? '' : 's'} · ${date.toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric', timeZone:'UTC'})}`;
+        frag.appendChild(cell);
+        if(c){ subs += c; active++; }
+        if(date.getUTCDate() === 1 && d - startDay > 6){
+          const s = document.createElement('span');
+          s.textContent = date.toLocaleDateString(undefined, {month:'short', timeZone:'UTC'});
+          s.style.left = (Math.floor((d - startDay) / 7) * 14) + 'px';
+          months.appendChild(s);
+        }
+      }
+      grid.appendChild(frag);
+      $('lcHeatSummary').textContent = `${subs} submissions · ${active} active days in the past year`;
+    }
+
+    function render(d){
+      $('lcUser').textContent = d.username;
+      ['easy', 'medium', 'hard'].forEach(k=>{
+        const cap = k[0].toUpperCase() + k.slice(1);
+        $('lc' + cap + 'Total').textContent = d.total[k].toLocaleString();
+      });
+      const [l1, l2] = d.languages;
+      if(l1) $('lcLang1Name').textContent = 'solved in ' + l1[0];
+      if(l2) $('lcLang2Name').textContent = 'solved in ' + l2[0];
+      $('lcBadges').innerHTML = d.badges.map(badgeHtml).join('');
+      $('lcTopics').innerHTML = '';
+      d.topics.forEach(([name, n])=>{
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = name;
+        const b = document.createElement('b');
+        b.textContent = n;
+        chip.appendChild(b);
+        $('lcTopics').appendChild(chip);
+      });
+      buildHeatmap(d.calendar);
+      $('lcNote').textContent = 'stats from LeetCode\'s public profile';
+      if(shown) animate(d);
+    }
+
+    function animate(d){
+      shown = true;
+      countUp($('lcSolved'), d.solved.all);
+      countUp($('lcStreak'), d.streak);
+      countUp($('lcActive'), d.activeDays);
+      countUp($('lcLang1'), d.languages[0] ? d.languages[0][1] : 0);
+      countUp($('lcLang2'), d.languages[1] ? d.languages[1][1] : 0);
+      // ring: one arc per difficulty, sized by its share of solved problems
+      const gap = d.solved.hard ? 4 : 0;
+      let offset = 0;
+      ['easy', 'medium', 'hard'].forEach(k=>{
+        const cap = k[0].toUpperCase() + k.slice(1);
+        const len = d.solved.all ? Math.max(0, (d.solved[k] / d.solved.all) * C - gap) : 0;
+        const arc = $('lcArc' + cap);
+        arc.style.strokeDashoffset = -offset;
+        arc.style.strokeDasharray = `${len} ${C}`;
+        offset += len + gap;
+        countUp($('lc' + cap), d.solved[k]);
+        $('lc' + cap + 'Fill').style.width = Math.max(1.5, d.solved[k] / d.total[k] * 100).toFixed(1) + '%';
+      });
+    }
+
+    ['Easy', 'Medium', 'Hard'].forEach(cap=>{ $('lcArc' + cap).style.strokeDasharray = `0 ${C}`; });
+    $('lcSync').textContent = 'snapshot · ' + LEETCODE_SNAPSHOT_DATE;
+    render(data);
+
+    new IntersectionObserver((entries, o)=>{
+      if(!entries[0].isIntersecting) return;
+      o.disconnect();
+      animate(data);
+    }, {threshold:0.25}).observe(card);
+
+    if(CHAT_ENDPOINT){
+      fetch(CHAT_ENDPOINT.replace(/\/$/, '') + '/leetcode')
+        .then(r => r.ok ? r.json() : Promise.reject(r.status))
+        .then(live => {
+          if(!live || !live.solved) return;
+          data = live;
+          render(data);
+          $('lcSync').textContent = 'live';
+        })
+        .catch(()=>{});
+    }
+  })();
+
   // ---------- AI assistant ----------
   const chat = document.getElementById('chat');
   const chatLog = document.getElementById('chatLog');
@@ -1186,7 +1484,7 @@
     {k:['strongest','best at','strength','speciali','focus','good at'], a:"His core strength is backend development in Java and Spring Boot: designing REST APIs, securing them with Spring Security, JWT and OAuth2, and persisting data in MySQL. He also integrates AI (Gemini API) into real products and can build the React frontend himself."},
     {k:['skill','stack','tech','language','know','java','spring','react','sql','aws','docker'], a:"Backend: Java, Spring Boot, REST APIs, Hibernate, JDBC, Python\nSecurity: Spring Security, JWT, Google OAuth2\nData: MySQL, SQL, Firebase\nAI: Gemini API, OpenCV\nFrontend: React, JavaScript, HTML, CSS\nCloud & tools: AWS, Docker, Git, Linux"},
     {k:['education','college','degree','cgpa','university','sppu','study','graduat'], a:"B.E. in Computer Engineering, Savitribai Phule Pune University (2022–2026), CGPA 8.32/10. HSC 68.17%, SSC 84.80%, both from Bharat Highschool and Junior College."},
-    {k:['leetcode','dsa','hackerrank','achievement','certif','problem'], a:"Pratik has solved 200+ DSA problems on LeetCode and holds a 2-star SQL rating on HackerRank."},
+    {k:['leetcode','dsa','hackerrank','achievement','certif','problem','streak','badge'], a:"Pratik has solved 273 problems on LeetCode (177 easy, 90 medium, 6 hard), 211 of them in Java and 61 in MySQL. His longest daily streak is 274 days, and he holds the 200 Days Badge 2026 and the Top SQL 50 badge. Profile: leetcode.com/u/pratikbhor2004. He also has a 2-star SQL rating on HackerRank."},
     {k:['location','where','based','relocat','remote'], a:"Pratik is based in Pune, India. For questions about relocation or remote work, please ask him directly at pratikbhor2004@gmail.com."},
     {k:['resume','cv','pdf'], a:"Use the \"resume.pdf\" button at the top of the page, which opens a print-ready version you can save as a PDF."}
   ];

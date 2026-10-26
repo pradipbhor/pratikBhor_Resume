@@ -32,8 +32,23 @@ Projects:
 Skills: Java, Python, JavaScript, SQL, HTML, CSS; Spring Boot, REST APIs, Hibernate, JDBC, Spring Security, JWT, OAuth2;
 MySQL, Firebase; React.js; Google Gemini API, OpenCV; AWS, Docker, Git, GitHub, Linux; VS Code, Eclipse, MySQL Workbench.
 
-Achievements: 200+ DSA problems solved on LeetCode; 2-star SQL rating on HackerRank.
+Achievements: 270+ DSA problems solved on LeetCode (leetcode.com/u/pratikbhor2004: 177 easy, 90 medium, 6 hard; 211 in Java, 61 in MySQL);
+274-day longest solving streak; LeetCode badges: 200 Days Badge 2026, 100 Days Badge 2026, 50 Days Badge 2026, Top SQL 50;
+2-star SQL rating on HackerRank.
 `;
+
+const LEETCODE_USER = 'pratikbhor2004';
+const LEETCODE_QUERY = `query($u:String!){
+  allQuestionsCount{difficulty count}
+  matchedUser(username:$u){
+    submitStatsGlobal{acSubmissionNum{difficulty count}}
+    profile{ranking}
+    badges{displayName}
+    languageProblemCount{languageName problemsSolved}
+    tagProblemCounts{advanced{tagName problemsSolved} intermediate{tagName problemsSolved} fundamental{tagName problemsSolved}}
+    userCalendar{streak totalActiveDays submissionCalendar}
+  }
+}`;
 
 const SYSTEM_PROMPT = `You are the AI assistant on Pratik Bhor's portfolio website. Visitors are mostly recruiters and hiring managers.
 Answer questions about Pratik using ONLY the profile below. Be warm, concise (2–5 sentences), professional, and speak about him in the third person.
@@ -49,7 +64,7 @@ const MAX_CHARS = 500;
 function cors(env) {
   return {
     'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
 }
@@ -61,9 +76,50 @@ function json(body, status, env) {
   });
 }
 
+// GET /leetcode: live profile stats in the same shape as the snapshot in index.html, cached for an hour
+async function leetcode(env, ctx) {
+  const cache = caches.default;
+  const key = new Request('https://cache.internal/leetcode/' + LEETCODE_USER);
+  const hit = await cache.match(key);
+  if (hit) return new Response(hit.body, { headers: { ...Object.fromEntries(hit.headers), ...cors(env) } });
+
+  const res = await fetch('https://leetcode.com/graphql', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Referer: 'https://leetcode.com' },
+    body: JSON.stringify({ query: LEETCODE_QUERY, variables: { u: LEETCODE_USER } }),
+  });
+  if (!res.ok) return json({ error: 'upstream error' }, 502, env);
+  const d = (await res.json()).data;
+  const u = d && d.matchedUser;
+  if (!u) return json({ error: 'user not found' }, 502, env);
+
+  const count = (arr, k) => (arr.find(x => x.difficulty === k) || {}).count || 0;
+  const ac = u.submitStatsGlobal.acSubmissionNum;
+  const t = u.tagProblemCounts;
+  const stats = {
+    username: LEETCODE_USER,
+    solved: { all: count(ac, 'All'), easy: count(ac, 'Easy'), medium: count(ac, 'Medium'), hard: count(ac, 'Hard') },
+    total: { all: count(d.allQuestionsCount, 'All'), easy: count(d.allQuestionsCount, 'Easy'), medium: count(d.allQuestionsCount, 'Medium'), hard: count(d.allQuestionsCount, 'Hard') },
+    ranking: u.profile.ranking,
+    streak: u.userCalendar.streak,
+    activeDays: u.userCalendar.totalActiveDays,
+    badges: u.badges.map(b => b.displayName),
+    languages: u.languageProblemCount.map(l => [l.languageName, l.problemsSolved]).sort((a, b) => b[1] - a[1]),
+    topics: [...t.advanced, ...t.intermediate, ...t.fundamental].sort((a, b) => b.problemsSolved - a.problemsSolved).slice(0, 8).map(x => [x.tagName, x.problemsSolved]),
+    calendar: JSON.parse(u.userCalendar.submissionCalendar || '{}'),
+  };
+
+  const out = new Response(JSON.stringify(stats), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' },
+  });
+  ctx.waitUntil(cache.put(key, out.clone()));
+  return new Response(out.body, { headers: { ...Object.fromEntries(out.headers), ...cors(env) } });
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors(env) });
+    if (request.method === 'GET' && new URL(request.url).pathname === '/leetcode') return leetcode(env, ctx);
     if (request.method !== 'POST') return json({ error: 'method not allowed' }, 405, env);
 
     const origin = request.headers.get('Origin');

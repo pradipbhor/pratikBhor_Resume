@@ -2,8 +2,13 @@
 
 Personal portfolio of Pratik Bhor, Backend Developer (Java · Spring Boot).
 
-- `index.html`: the whole site. It includes an interactive Three.js 3D stack scene, 3D tilt cards, a print-ready resume (the **resume.pdf** button), and an "ask my AI" chat assistant.
-- `chat-worker/`: a Cloudflare Worker that connects the chat to OpenAI without exposing the API key.
+- `index.html`: the whole site. It includes an interactive Three.js 3D stack scene, 3D tilt cards, a LeetCode stats section, a print-ready resume (the **resume.pdf** button), and an "ask my AI" chat assistant.
+- `chat-worker/`: a Cloudflare Worker that connects the chat to OpenAI without exposing the API key. It also serves live LeetCode stats at `GET /leetcode`.
+- `linkedin/`: a LinkedIn banner (`banner.png`, made from `banner.html`) and a profile photo.
+
+## LeetCode stats
+
+The LeetCode section uses a snapshot built into `index.html` (`LEETCODE_SNAPSHOT`). Once the worker is deployed and `CHAT_ENDPOINT` is set, the page fetches live numbers from `<worker>/leetcode`, which the worker caches for an hour. The label then changes from "snapshot" to "live". Browsers can't call LeetCode's API directly because of CORS, which is why the worker sits in between.
 
 ## AI assistant setup
 
